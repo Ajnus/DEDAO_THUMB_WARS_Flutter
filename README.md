@@ -6,6 +6,7 @@ http://www-di.inf.puc-rio.br/~endler/courses/Flutter/
 plus some recent personal digging.
 
 In constant development for Dart/Flutter pratice + total fun. :)
+
 ---
 
 A few resources to get you started if this is your first Flutter project:
