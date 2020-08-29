@@ -1,0 +1,119 @@
+name: counter
+description: A new Flutter project.
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+androidX: true # Add this line.
+
+dependencies:
+  isolate_handler: ^0.3.1
+  audioplayers: ^0.11.0
+  flare_flutter: ^1.5.0
+  flare_dart: ^1.4.0
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  frideos: ^0.6.0
+  http: ^0.12.0
+  image_picker: ^0.6.0+15
+  audio_recorder: ^1.0.2
+  youtube_player_flutter: ^7.0.0+7
+  flutter_inappwebview: ^4.0.0+4
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://www.dartlang.org/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/vadervsobiwan.jpg
+    - assets/flaws.jpg
+
+    - assets/0.mp3
+    - assets/1.mp3
+    - assets/2.mp3
+    - assets/3.mp3
+    - assets/4.mp3
+    - assets/5.mp3
+
+    - assets/6.mp3
+    - assets/7.mp3
+    - assets/8.mp3
+    - assets/9.mp3
+    - assets/10.mp3
+    - assets/11.mp3
+
+    - assets/John Williams - Duel of the Fates (Star Wars Soundtrack) [HD].mp3
+    - assets/John Williams - Battle of the Heroes (Official Audio).mp3
+    - assets/Meditating.flr
+    - assets/Star_Wars_Soundtrack(cut).mp3
+    - assets/wpn_cis_blaster_fire.wav
+    - assets/Commander_Cody_blasts_him(cut).mp3
+    - assets/laughing.mp3
+    - assets/only a sith.mp3
+    - assets/liar!.mp3
+
+    - assets/You_underestimate_my_power(cut).mp3
+    - assets/this is the end for you, my master(cut).mp3
+    - assets/dont try it.mp3
+    - assets/Spinclash(vader).mp3
+
+    - assets/i18n/en.json
+    - assets/i18n/pt.json
+    - assets/i18n/es.json
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.io/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.io/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: StarJedi
+      fonts:
+        - asset: fonts/stjedise/STJEDISE.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.io/custom-fonts/#from-packages
