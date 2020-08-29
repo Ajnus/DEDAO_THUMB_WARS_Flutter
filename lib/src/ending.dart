@@ -28,7 +28,7 @@ class _EndingPageState extends State<EndingPage> {
         hideControls: true,
         hideThumbnail: true,
         autoPlay: true,
-        endAt: 68,
+        endAt: 69,
         mute: false,
         disableDragSeek: true,
         loop: false,

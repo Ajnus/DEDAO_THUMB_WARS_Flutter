@@ -93,17 +93,20 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       end: const Offset(0.0, -1.5),
     ).animate(CurvedAnimation(parent: _controller2, curve: Curves.easeInOut));
 
-    Future.delayed(Duration(seconds: 29), () {
+    Future.delayed(Duration(seconds: 30), () {
       showOverlay(context);
     });
-    Future.delayed(Duration(seconds: 39 + 5), () {
+    Future.delayed(Duration(seconds: 40 + 5), () {
       showOverlay2(context);
     });
-    Future.delayed(Duration(seconds: 50), () {
+    Future.delayed(Duration(seconds: 60), () {
       showOverlay3(context);
     });
+    Future.delayed(Duration(seconds: 60), () {
+      showOverlay4(context);
+    });
     Future.delayed(
-      const Duration(seconds: 82), // 40
+      const Duration(seconds: 80), // 40
       () {
         Navigator.pop(context);
         Navigator.push(
@@ -160,24 +163,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   }
 
   showOverlay4(BuildContext context) async {
-    OverlayState overlayState = Overlay.of(context);
-    OverlayEntry overlayEntry = OverlayEntry(
-        /*opaque: true,*/ builder: (context) => Positioned(
-            top: 90.0,
-            right: 0.0,
-            child: Opacity(
-                opacity: 0.65,
-                child: (Image.asset('assets/images/vadertable.png')))));
-
-    for (int i = 0; i < 3; i++) {
-      overlayState.insert(overlayEntry);
-      await Future.delayed(Duration(milliseconds: 175));
-      overlayEntry.remove();
-      await Future.delayed(Duration(milliseconds: 175));
-    }
-  }
-
-  showOverlay5(BuildContext context) async {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = OverlayEntry(
         /*opaque: true,*/ builder: (context) => Positioned(
