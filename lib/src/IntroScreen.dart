@@ -43,7 +43,6 @@ class CrawlPage extends StatelessWidget {
   }
 }
 
-
 class Crawler extends StatefulWidget {
   final crawlDuration = const Duration(seconds: 50);
 
@@ -72,7 +71,7 @@ class _CrawlerState extends State<Crawler> {
     Future.delayed(Duration(seconds: 3), () {
       background.play(intromusic);
     });
-    
+
     super.initState();
   }
 

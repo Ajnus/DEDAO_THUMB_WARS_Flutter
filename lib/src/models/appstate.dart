@@ -13,14 +13,13 @@ import '../models/models.dart';
 import '../models/question.dart';
 import '../models/theme.dart';
 
-
 class AppState extends AppStateModel {
   factory AppState() => _singletonAppState;
   static AudioCache player2 = new AudioCache();
   static AudioCache player3 = new AudioCache();
   static AudioCache player4 = new AudioCache();
-  static const blaster = "wpn_cis_blaster_fire.wav"; 
-  static const blasthim = "Commander_Cody_blasts_him(cut).mp3"; 
+  static const blaster = "wpn_cis_blaster_fire.wav";
+  static const blasthim = "Commander_Cody_blasts_him(cut).mp3";
   static const over = "You_underestimate_my_power(cut).mp3";
   //miscellaneous
   static const end = 'this is the end for you, my master(cut).mp3';
@@ -183,18 +182,29 @@ class AppState extends AppStateModel {
 
   void playGame() {
     player3.play(blasthim);
-    
+
     _changeTab = AppTab.game;
-    Future.delayed(Duration(seconds: 1), () {player4.play(over);});
-    Future.delayed(Duration(seconds: 30), () {player2.play(end);});
-    Future.delayed(Duration(seconds: 40+5), () {player3.play(only);});
-    Future.delayed(Duration(seconds: 60), () {player3.play(liar);});
-    Future.delayed(Duration(seconds: 70), () {player2.play(breathe);});
-    Future.delayed(Duration(seconds: 80), () {player3.play(palps);});
+    Future.delayed(Duration(seconds: 1), () {
+      player4.play(over);
+    });
+    Future.delayed(Duration(seconds: 30), () {
+      player2.play(end);
+    });
+    Future.delayed(Duration(seconds: 40 + 5), () {
+      player3.play(only);
+    });
+    Future.delayed(Duration(seconds: 60), () {
+      player3.play(liar);
+    });
+    Future.delayed(Duration(seconds: 70), () {
+      player2.play(breathe);
+    });
+    Future.delayed(Duration(seconds: 80), () {
+      player3.play(palps);
+    });
   }
 
   void ending() {
-    
     _changeTab = AppTab.ending;
   }
 

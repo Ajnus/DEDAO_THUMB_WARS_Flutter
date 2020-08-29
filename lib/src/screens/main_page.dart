@@ -93,25 +93,25 @@ class MainPage extends StatelessWidget {
                       streamed: appState.categoryChosen,
                       builder: (context, snapshotCategory) =>
                           DropdownButton<Category>(
-                            isExpanded: true,
-                            value: snapshotCategory.data,
-                            onChanged: appState.setCategory,
-                            items: categories
-                                .map<DropdownMenuItem<Category>>(
-                                  (value) => DropdownMenuItem<Category>(
-                                        value: value,
-                                        child: Text(
-                                          value.name,
-                                          style: const TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.orange,
-                                          ),
-                                        ),
-                                      ),
-                                )
-                                .toList(),
-                          ),
+                        isExpanded: true,
+                        value: snapshotCategory.data,
+                        onChanged: appState.setCategory,
+                        items: categories
+                            .map<DropdownMenuItem<Category>>(
+                              (value) => DropdownMenuItem<Category>(
+                                value: value,
+                                child: Text(
+                                  value.name,
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.orange,
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
                     ),
                   ],
                 ),

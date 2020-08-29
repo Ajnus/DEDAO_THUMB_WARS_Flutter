@@ -24,7 +24,7 @@ import 'src/internac/localizations.dart'
 void main() async {
   //Map<String, Map<String, String>> localizedValues = await initializeI18n();
   //WidgetsFlutterBinding.ensureInitialized();
-   
+
   runApp(MyApp());
 }
 
@@ -38,7 +38,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _locale = 'en';
-  
+
   onChangeLanguage() {
     if (_locale == 'en') {
       setState(() {

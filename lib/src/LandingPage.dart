@@ -44,10 +44,10 @@ class LandingPage extends StatelessWidget {
     return ValueBuilder(
       streamed: appState.tabController,
       builder: (context, snapshot) => Scaffold(
-            appBar: snapshot.data != AppTab.main ? null : AppBar(),
-            drawer: DrawerWidget(),
-            body: _switchTab(snapshot.data, appState),
-          ),
+        appBar: snapshot.data != AppTab.main ? null : AppBar(),
+        drawer: DrawerWidget(),
+        body: _switchTab(snapshot.data, appState),
+      ),
     );
   }
 }

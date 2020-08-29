@@ -4,15 +4,12 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:audioplayers/audio_cache.dart';
 
-
-
 class EndingPage extends StatefulWidget {
- 
   @override
   _EndingPageState createState() => _EndingPageState();
 }
 
-class _EndingPageState extends State<EndingPage>{
+class _EndingPageState extends State<EndingPage> {
   YoutubePlayerController _controller;
 
   PlayerState _playerState;
@@ -31,7 +28,7 @@ class _EndingPageState extends State<EndingPage>{
         hideControls: true,
         hideThumbnail: true,
         autoPlay: true,
-        endAt: 
+        endAt: 68,
         mute: false,
         disableDragSeek: true,
         loop: false,
@@ -39,7 +36,8 @@ class _EndingPageState extends State<EndingPage>{
         forceHD: true,
         enableCaption: false,
       ),
-    );/*..addListener(listener);
+    );
+    /*..addListener(listener);
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;*/
   }
@@ -62,40 +60,39 @@ class _EndingPageState extends State<EndingPage>{
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeLeft,
     ]);
     return YoutubePlayerBuilder(
-      player: YoutubePlayer(
-        controller: _controller,
-        showVideoProgressIndicator: false,
-        topActions: <Widget>[
-          const SizedBox(width: 8.0),
-          Expanded(
-            child: Text(
-              _controller.metadata.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
+        player: YoutubePlayer(
+          controller: _controller,
+          showVideoProgressIndicator: false,
+          topActions: <Widget>[
+            const SizedBox(width: 8.0),
+            Expanded(
+              child: Text(
+                _controller.metadata.title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
             ),
-          ),
-        ],
-        onReady: () {
-          _isPlayerReady = true;
-        },
-        //onEnded: // implementar 
-      ),
-      builder: (context, player){
-        return Column(
+          ],
+          onReady: () {
+            _isPlayerReady = true;
+          },
+          //onEnded: // implementar
+        ),
+        builder: (context, player) {
+          return Column(
             children: [
-                // some widgets
-                player,
-                //some other widgets
+              // some widgets
+              player,
+              //some other widgets
             ],
-        );
-      }
-    );
+          );
+        });
   }
 }
