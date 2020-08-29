@@ -1,10 +1,14 @@
-# counter
+# Dedão Wars
 
-A new Flutter project.
+A Game/Project fruit of the INF1300 - Mobile Agile and Multiplatform Programming classes at 2019-1 at PUC-Rio, from Professor Markus Endler and monitor Felipe Carvalho.
 
-## Getting Started
+http://www-di.inf.puc-rio.br/~endler/courses/Flutter/ 
 
-This project is a starting point for a Flutter application.
+plus some recent personal digging.
+
+In constant development for Dart/Flutter pratice + total fun. :)
+
+---
 
 A few resources to get you started if this is your first Flutter project:
 
