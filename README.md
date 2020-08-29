@@ -2,7 +2,8 @@
 
 A Game/Project fruit of the INF1300 - Mobile Agile and Multiplatform Programming classes at 2019-1 at PUC-Rio, from Professor Markus Endler and monitor Felipe Carvalho.
 
-http://www-di.inf.puc-rio.br/~endler/courses/Flutter/
+http://www-di.inf.puc-rio.br/~endler/courses/Flutter/ 
+
 plus some recent personal digging.
 
 In constant development for Dart/Flutter pratice + total fun. :)
