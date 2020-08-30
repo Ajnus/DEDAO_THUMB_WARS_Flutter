@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:audioplayers/audio_cache.dart';
+import 'dart:async';
 
 class EndingPage extends StatefulWidget {
   @override
@@ -18,9 +19,43 @@ class _EndingPageState extends State<EndingPage> {
   bool _muted = false;
   bool _isPlayerReady = true;
 
+  showOverlay5(BuildContext context) async {
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry = OverlayEntry(
+        /*opaque: true,*/ builder: (context) => Positioned(
+            bottom: 0.0,
+            left: 0.0,
+            child: Image.asset('assets/images/black tie.png')));
+
+    overlayState.insert(overlayEntry);
+
+    await Future.delayed(Duration(seconds: 1));
+
+    overlayEntry.remove();
+  }
+
+  showOverlay6(BuildContext context) async {
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry = OverlayEntry(
+        /*opaque: true,*/ builder: (context) => Positioned(
+            top: 0.0,
+            left: 0.0,
+            child: Image.asset('assets/images/black tie.png')));
+
+    overlayState.insert(overlayEntry);
+
+    await Future.delayed(Duration(seconds: 1));
+
+    overlayEntry.remove();
+  }
+
   @override
   void initState() {
     super.initState();
+
+    showOverlay5(context);
+    showOverlay6(context);
+    
     _controller = YoutubePlayerController(
       initialVideoId: '4EtCGR2M_oU',
       flags: YoutubePlayerFlags(
@@ -28,7 +63,7 @@ class _EndingPageState extends State<EndingPage> {
         hideControls: true,
         hideThumbnail: true,
         autoPlay: true,
-        endAt: 69,
+        //endAt: 69,
         mute: false,
         disableDragSeek: true,
         loop: false,

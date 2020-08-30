@@ -9,6 +9,8 @@ import 'package:audioplayers/audio_cache.dart';
 import 'ending.dart';
 
 class GamePage extends StatefulWidget {
+  //GamePage({Key key, this.title}) : super(key: key);
+
   @override
   _GamePageState createState() => _GamePageState();
   //_Animation createState() => _MyHomePageState();
@@ -64,7 +66,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       i = new Random().nextInt(11);
       player.play('$i.mp3');
 
-      showOverlay3(context);
       _counter--;
     });
   }
@@ -99,10 +100,10 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     Future.delayed(Duration(seconds: 40 + 5), () {
       showOverlay2(context);
     });
-    Future.delayed(Duration(seconds: 60), () {
+    Future.delayed(Duration(seconds: 61), () {
       showOverlay3(context);
     });
-    Future.delayed(Duration(seconds: 60), () {
+    Future.delayed(Duration(seconds: 70), () {
       showOverlay4(context);
     });
     Future.delayed(
@@ -127,7 +128,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     overlayState.insert(overlayEntry);
 
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 2));
 
     overlayEntry.remove();
   }
@@ -142,7 +143,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     overlayState.insert(overlayEntry);
 
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 2));
 
     overlayEntry.remove();
   }
@@ -150,10 +151,18 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   showOverlay3(BuildContext context) async {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = OverlayEntry(
-        /*opaque: true,*/ builder: (context) => Positioned(
-            bottom: 123.0,
-            right: 0.0,
-            child: Image.asset('assets/images/anachoke.png')));
+        /*opaque: true,*/ builder: (context) {
+      return AnimatedOpacity(
+          // If the widget is visible, animate to 0.0 (invisible).
+          // If the widget is hidden, animate to 1.0 (fully visible).
+          opacity: 1.0,
+          duration: Duration(seconds: 2),
+          // The green box must be a child of the AnimatedOpacity widget.
+          child: Positioned(
+              bottom: 113.0,
+              right: 0.0,
+              child: Image.asset('assets/images/anachoke.png')));
+    });
 
     overlayState.insert(overlayEntry);
 
@@ -172,7 +181,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                 opacity: 0.65,
                 child: (Image.asset('assets/images/vadertable.png')))));
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
       overlayState.insert(overlayEntry);
       await Future.delayed(Duration(milliseconds: 175));
       overlayEntry.remove();
@@ -182,9 +191,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
     _controller2.dispose();
+    super.dispose();
   }
 
   @override
