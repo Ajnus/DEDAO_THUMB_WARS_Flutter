@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:counter/src/color.dart';
 import 'ending.dart';
+import 'game.dart';
 import 'choose.dart';
 import 'LandingPage.dart';
 import 'dart:async';
@@ -68,9 +69,9 @@ class _CrawlerState extends State<Crawler> {
       () => Navigator.push(
           context, MaterialPageRoute(builder: (context) => LandingPage())),
     );
-    Future.delayed(Duration(seconds: 3), () {
+    /*Future.delayed(Duration(seconds: 3), () {
       background.play(intromusic);
-    });
+    });*/
 
     super.initState();
   }
