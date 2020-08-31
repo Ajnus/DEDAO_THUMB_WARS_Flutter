@@ -1,4 +1,4 @@
-# Dedão Wars
+# Dedão (Thumb) Wars
 
 A Game/Project fruit of the INF1300 - Mobile Agile and Multiplatform Programming classes at 2019-1 at PUC-Rio, from Professor Markus Endler and monitor Felipe Carvalho.
 
