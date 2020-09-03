@@ -7,6 +7,7 @@ import 'models/models.dart';
 import 'screens/main_page.dart';
 import 'screens/settings_page.dart';
 import 'Choose.dart';
+import 'heroes.dart';
 import 'game.dart';
 import 'ending.dart';
 
@@ -23,6 +24,9 @@ class LandingPage extends StatelessWidget {
       case AppTab.choose:
         return ChoosePage();
         break;
+      /*case AppTab.heroes:
+        return HeroesPage(i);
+        break;*/
       case AppTab.game:
         return GamePage();
         break;

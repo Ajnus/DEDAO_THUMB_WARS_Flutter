@@ -1,5 +1,5 @@
 class CharBio {
-  //final int id;
+  final int id;
   final String name;
   final String height;
   final String mass;
@@ -15,7 +15,7 @@ class CharBio {
   List starships;*/
 
   CharBio.fromJson(Map<String, dynamic> json)
-      : //id = json['id'],
+      : id = json['id'],
         name = json['name'],
         height = json['height'],
         mass = json['mass'],
@@ -32,7 +32,7 @@ class CharBio {
 
          // object -> json
   Map<String, dynamic> toJson() =>
-      {/*'id': id, */'name': name, 'height': height, 'mass': mass, 'hair_color': hair_color,
+      {'id': id, 'name': name, 'height': height, 'mass': mass, 'hair_color': hair_color,
         'skin_color': skin_color, 'eye_color': eye_color, 'birth_year': birth_year, 'gender': gender, 'pic': pic
         /*'homeworld': homeworld 'films': films, 'species': species, 'starships': starships*/
       };

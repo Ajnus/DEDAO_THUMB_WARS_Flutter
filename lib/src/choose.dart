@@ -1,3 +1,5 @@
+import 'package:counter/src/bio/CharBio.dart';
+import 'package:counter/src/bio/bio_details.dart';
 import 'package:counter/src/game.dart';
 import 'package:flutter/material.dart';
 /*import 'color.dart';
@@ -7,16 +9,18 @@ import 'bio_api.dart';*/
 import 'screens/main_page.dart';
 import 'game.dart';
 import 'models/models.dart';
+import 'heroes.dart';
 import 'models/appstate.dart';
 import 'package:frideos/frideos.dart';
 
 class ChoosePage extends StatefulWidget {
-  
   @override
   _ChoosePageState createState() => _ChoosePageState();
 }
 
 class _ChoosePageState extends State<ChoosePage> {
+  CharBio _charBio;
+
   /*void initState() {
     Future.delayed(
       const Duration(seconds: 3),
@@ -25,7 +29,6 @@ class _ChoosePageState extends State<ChoosePage> {
     );
         super.initState();
   }*/
-  
 
   /*Widget _switchTab(AppTab tab, AppState appState) {
     switch (tab) {
@@ -43,13 +46,20 @@ class _ChoosePageState extends State<ChoosePage> {
     }
   }*/
 
-  List<GestureDetector> _buildGridTileList(int count) => List.generate(count, (i) {
-        return GestureDetector(
-            //onTap: appState.startGame,
-            child: Container(
-              child: Image.asset('assets/images/pic$i (Personalizado).jpg'),
-            ));
-      });
+  List<Hero> _buildGridTileList(int count) {
+     
+    return List.generate(count, (i) {
+        return Hero(
+            tag: '$i',
+            child: GestureDetector(
+                onLongPress: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HeroesPage(i))), // implementar busca no JSON
+                child: Container(
+                    child: Image.asset(
+                        'assets/images/pic$i (Personalizado).jpg'))));
+      });}
 
   Widget _buildGrid() => GridView.extent(
       maxCrossAxisExtent: 171,
@@ -62,7 +72,7 @@ class _ChoosePageState extends State<ChoosePage> {
   Widget build(BuildContext context) {
     final appState = AppStateProvider.of<AppState>(context);
 
-   /* ValueBuilder(
+    /* ValueBuilder(
       streamed: appState.tabController,
       builder: (context, snapshot) => Scaffold(
             appBar: snapshot.data != AppTab.choose ? null : AppBar(),
@@ -100,8 +110,8 @@ class _ChoosePageState extends State<ChoosePage> {
                       color: new Color(0xFF26C6DA),
                     )),
                 RaisedButton(
-                  child: Text('GENERAL KENOBI!'),
-                  onPressed: appState.playGame, 
+                  child: Text('Un-Disturb the Force'),
+                  onPressed: appState.playGame,
                 ),
               ],
             ),
