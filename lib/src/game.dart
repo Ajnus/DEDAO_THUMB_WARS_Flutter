@@ -121,7 +121,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       _changeOpacity();
       //Future.delayed(Duration(milliseconds: 47050), () { // ->
     });
-  
+
     //});
     Future.delayed(Duration(seconds: 30), () {
       showOverlay(context);

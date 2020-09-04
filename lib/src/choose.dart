@@ -47,19 +47,20 @@ class _ChoosePageState extends State<ChoosePage> {
   }*/
 
   List<Hero> _buildGridTileList(int count) {
-     
     return List.generate(count, (i) {
-        return Hero(
-            tag: '$i',
-            child: GestureDetector(
-                onLongPress: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HeroesPage(i))), // implementar busca no JSON
-                child: Container(
-                    child: Image.asset(
-                        'assets/images/pic$i (Personalizado).jpg'))));
-      });}
+      return Hero(
+          tag: '$i',
+          child: GestureDetector(
+              onLongPress: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          HeroesPage(i))), // implementar busca no JSON
+              child: Container(
+                  child:
+                      Image.asset('assets/images/pic$i (Personalizado).jpg'))));
+    });
+  }
 
   Widget _buildGrid() => GridView.extent(
       maxCrossAxisExtent: 171,
@@ -97,7 +98,7 @@ class _ChoosePageState extends State<ChoosePage> {
         bottomNavigationBar: BottomAppBar(
           color: Colors.black,
           child: Container(
-            height: 16.0,
+            height: 32.0,
             //padding: new EdgeInsets.only(top: 16.0),
             child: new Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +111,13 @@ class _ChoosePageState extends State<ChoosePage> {
                       color: new Color(0xFF26C6DA),
                     )),
                 RaisedButton(
-                  child: Text('Un-Disturb the Force'),
+                  color: Colors.black,
+                  child: Text('Do iT',
+                      style: new TextStyle(
+                        fontSize: 15.0,
+                        fontFamily: 'StarJedi',
+                        color: Colors.red, //new Color(0xFF26C6DA),
+                      )),
                   onPressed: appState.playGame,
                 ),
               ],

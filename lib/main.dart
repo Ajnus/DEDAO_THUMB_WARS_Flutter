@@ -1,4 +1,5 @@
 import 'package:counter/src/game.dart';
+import 'package:flutter/services.dart';
 
 import 'src/color.dart';
 import 'src/IntroScreen.dart';
@@ -23,7 +24,8 @@ import 'src/internac/localizations.dart'
 
 void main() async {
   //Map<String, Map<String, String>> localizedValues = await initializeI18n();
-  //WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([]);
 
   runApp(MyApp());
 }

@@ -1,8 +1,10 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:counter/src/color.dart';
+import 'package:flutter/services.dart';
 import 'ending.dart';
 import 'game.dart';
 import 'choose.dart';
+import 'postcred.dart';
 import 'LandingPage.dart';
 import 'dart:async';
 import 'package:audioplayers/audio_cache.dart';
@@ -58,6 +60,7 @@ class _CrawlerState extends State<Crawler> {
 
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIOverlays([]);
     Future.delayed(
         const Duration(milliseconds: 500),
         () => _scrollController.animateTo(
@@ -67,7 +70,7 @@ class _CrawlerState extends State<Crawler> {
     Future.delayed(
       const Duration(seconds: 1),
       () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LandingPage())),
+          context, MaterialPageRoute(builder: (context) => PostCreditsPage())),
     );
     /*Future.delayed(Duration(seconds: 3), () {
       background.play(intromusic);
