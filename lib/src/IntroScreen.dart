@@ -84,7 +84,8 @@ class _CrawlerState extends State<Crawler> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    return GestureDetector(
+    return Scaffold (
+        body: GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, '/choose');
       },
@@ -116,7 +117,7 @@ class _CrawlerState extends State<Crawler> {
           MyBlinkingButton(),
         ],
       ),
-    );
+    ));
   }
 }
 
