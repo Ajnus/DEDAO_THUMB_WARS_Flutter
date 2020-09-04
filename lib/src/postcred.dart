@@ -32,7 +32,7 @@ class _PostCreditsPageState extends State<PostCreditsPage> {
     OverlayEntry overlayEntry = OverlayEntry(
         builder: (context) => Positioned(
             bottom: 20.0,
-            left: 360.0,
+            left: 350.0,
             child: Image.asset('assets/images/point.png')));
 
     overlayState.insert(overlayEntry);
@@ -48,7 +48,7 @@ class _PostCreditsPageState extends State<PostCreditsPage> {
         /*opaque: true,*/ builder: (context) {
       return Positioned(
           bottom: 20.0,
-          left: 360.0,
+          left: 350.0,
           child: AnimatedOpacity(
               // If the widget is visible, animate to 0.0 (invisible).
               // If the widget is hidden, animate to 1.0 (fully visible).
@@ -65,16 +65,18 @@ class _PostCreditsPageState extends State<PostCreditsPage> {
   _changeOpacity() async {
     await Future.delayed(Duration(seconds: 1));
     setState(() => _opacityLevel = _opacityLevel == 0 ? 1.0 : 0.0);
+    await Future.delayed(Duration(seconds: 4));
+    setState(() => _opacityLevel = _opacityLevel == 0 ? 1.0 : 0.0);
   }
 
   @override
   void initState() {
     super.initState();
     //SystemChrome.setEnabledSystemUIOverlays([]);
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(seconds: 8), () {
       _showPoint(context);
     });
-    Future.delayed(Duration(seconds: 6), () {
+    Future.delayed(Duration(seconds: 9), () {
       //_changeOpacity();
       _showJaporOverlay(context);
       _changeOpacity();
