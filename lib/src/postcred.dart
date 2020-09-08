@@ -9,7 +9,9 @@ class PostCreditsPage extends StatefulWidget {
   _PostCreditsPageState createState() => _PostCreditsPageState();
 }
 
-class _PostCreditsPageState extends State<PostCreditsPage> {
+class _PostCreditsPageState extends State<PostCreditsPage>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
   double _opacityLevel = 0.0;
 
   /*_prophecy2(BuildContext context) {
@@ -53,7 +55,7 @@ class _PostCreditsPageState extends State<PostCreditsPage> {
               // If the widget is visible, animate to 0.0 (invisible).
               // If the widget is hidden, animate to 1.0 (fully visible).
               opacity: _opacityLevel,
-              duration: Duration(seconds: 23),
+              duration: Duration(seconds: 12),
               curve: Curves.easeInOutBack,
               // The green box must be a child of the AnimatedOpacity widget.
               child: Image.asset('assets/images/japor-snippet.png')));
@@ -65,21 +67,72 @@ class _PostCreditsPageState extends State<PostCreditsPage> {
   _changeOpacity() async {
     await Future.delayed(Duration(seconds: 1));
     setState(() => _opacityLevel = _opacityLevel == 0 ? 1.0 : 0.0);
-    await Future.delayed(Duration(seconds: 4));
-    setState(() => _opacityLevel = _opacityLevel == 0 ? 1.0 : 0.0);
+    /*await Future.delayed(Duration(seconds: 4));
+    setState(() => _opacityLevel = _opacityLevel == 0 ? 1.0 : 0.0);*/
+  }
+
+  _wallOverlay(BuildContext context) {
+    //_controller.dispose();
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry = OverlayEntry(
+        /*opaque: true,*/ builder: (context) {
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final Size biggest = constraints.biggest;
+
+          return Stack(children: [
+            PositionedTransition(
+              rect: RelativeRectTween(
+                begin: RelativeRect.fromSize(
+                    Rect.fromLTWH(-5947.0, 168.0, 1107.0, 83.0), biggest),
+                end: RelativeRect.fromSize(
+                    Rect.fromLTWH(-500.0, 168.0, 1107.0, 83.0), biggest),
+              ).animate(
+                  CurvedAnimation(parent: _controller, curve: Curves.linear)),
+              child:
+                  /*Padding(
+                    padding: const EdgeInsets.all(8),
+                    child:*/
+                  Image.asset('assets/images/black tie.png'),
+            )
+          ]);
+        },
+      );
+    });
+
+    //await Future.delayed(Duration(seconds: 71));
+    overlayState.insert(overlayEntry);
+    //overlayState.build(overlayEntry);
+    /*await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(seconds: 1));
+
+      overlayEntry.remove();*/ // { ( { ( { (
   }
 
   @override
   void initState() {
     super.initState();
     //SystemChrome.setEnabledSystemUIOverlays([]);
-    Future.delayed(Duration(seconds: 8), () {
+
+    _controller = AnimationController(
+      duration: Duration(seconds: 35),
+      vsync: this,
+    )..forward();
+
+    Future.delayed(Duration(seconds: 11), () {
+      //_showPoint(context);
       _showPoint(context);
-    });
-    Future.delayed(Duration(seconds: 9), () {
-      //_changeOpacity();
       _showJaporOverlay(context);
       _changeOpacity();
+    });
+
+    Future.delayed(Duration(seconds: 10 + 9), () {
+      _showPoint(context);
+      _changeOpacity();
+      //Future.delayed(Duration(milliseconds: 100), () {
+        _wallOverlay(context);
+      //});
+      //_showPoint(context);
     });
   }
 

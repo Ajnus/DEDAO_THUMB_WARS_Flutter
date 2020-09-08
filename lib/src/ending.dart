@@ -134,9 +134,8 @@ class _EndingPageState extends State<EndingPage> with TickerProviderStateMixin {
     _controller2 = AnimationController(
       duration: const Duration(seconds: 20),
       vsync: this,
-    )
-      ..forward();
-      //..addListener((listenerOG));
+    )..forward();
+    //..addListener((listenerOG));
 
     /*_controller2A = AnimationController(
       duration: const Duration(seconds: 10),
