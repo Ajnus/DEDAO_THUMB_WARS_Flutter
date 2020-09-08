@@ -94,6 +94,20 @@ class _PostCreditsPageState extends State<PostCreditsPage>
                     padding: const EdgeInsets.all(8),
                     child:*/
                   Image.asset('assets/images/black tie.png'),
+            ),
+            PositionedTransition(
+              rect: RelativeRectTween(
+                begin: RelativeRect.fromSize(
+                    Rect.fromLTWH(5931.090, 168.0, 1107.0, 83.0), biggest),
+                end: RelativeRect.fromSize(
+                    Rect.fromLTWH(786.0, 168.0, 1107.0, 83.0), biggest),
+              ).animate(
+                  CurvedAnimation(parent: _controller, curve: Curves.linear)),
+              child:
+                  /*Padding(
+                    padding: const EdgeInsets.all(8),
+                    child:*/
+                  Image.asset('assets/images/black tie.png'),
             )
           ]);
         },
