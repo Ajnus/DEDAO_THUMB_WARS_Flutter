@@ -12,6 +12,7 @@ class PostCreditsPage extends StatefulWidget {
 class _PostCreditsPageState extends State<PostCreditsPage>
     with TickerProviderStateMixin {
   AnimationController _controller;
+  AnimationController _controller2;
   double _opacityLevel = 0.0;
 
   /*_prophecy2(BuildContext context) {
@@ -123,6 +124,44 @@ class _PostCreditsPageState extends State<PostCreditsPage>
       overlayEntry.remove();*/ // { ( { ( { (
   }
 
+  _wallOverlay2(BuildContext context) {
+    //_controller.dispose();
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry = OverlayEntry(
+        /*opaque: true,*/ builder: (context) {
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final Size biggest = constraints.biggest;
+
+          return Stack(children: [
+            PositionedTransition(
+              rect: RelativeRectTween(
+                begin: RelativeRect.fromSize(
+                    Rect.fromLTWH(600.0, 550.250, 1107.0, 83.0), biggest),
+                end: RelativeRect.fromSize(
+                    Rect.fromLTWH(600.0, 218.0, 1107.0, 83.0), biggest),
+              ).animate(
+                  CurvedAnimation(parent: _controller2, curve: Curves.linear)),
+              child:
+                  /*Padding(
+                    padding: const EdgeInsets.all(8),
+                    child:*/
+                  Image.asset('assets/images/black tie.png'),
+            )
+          ]);
+        },
+      );
+    });
+
+    //await Future.delayed(Duration(seconds: 71));
+    overlayState.insert(overlayEntry);
+    //overlayState.build(overlayEntry);
+    /*await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(seconds: 1));
+
+      overlayEntry.remove();*/ // { ( { ( { (
+  }
+
   @override
   void initState() {
     super.initState();
@@ -130,6 +169,11 @@ class _PostCreditsPageState extends State<PostCreditsPage>
 
     _controller = AnimationController(
       duration: Duration(seconds: 35),
+      vsync: this,
+    )..forward();
+
+    _controller2 = AnimationController(
+      duration: Duration(seconds: 42),
       vsync: this,
     )..forward();
 
@@ -144,10 +188,15 @@ class _PostCreditsPageState extends State<PostCreditsPage>
       _showPoint(context);
       _changeOpacity();
       //Future.delayed(Duration(milliseconds: 100), () {
-        _wallOverlay(context);
+      _wallOverlay(context);
+      _wallOverlay2(context);
       //});
       //_showPoint(context);
     });
+
+    /*Future.delayed(Duration(seconds: 10 + 9 + 2), () {
+      
+    });*/
   }
 
   @override
