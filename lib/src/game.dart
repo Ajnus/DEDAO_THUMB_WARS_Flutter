@@ -137,7 +137,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     Future.delayed(
       const Duration(seconds: 80), // 40
       () {
-        Navigator.pop(context);
+        //Navigator.pop(context);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => EndingPage()),
@@ -181,7 +181,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     OverlayEntry overlayEntry = OverlayEntry(
         /*opaque: true,*/ builder: (context) {
       return Positioned(
-          bottom: 110.0,
+          bottom: 148.0,
           right: 0.0,
           child: AnimatedOpacity(
               // If the widget is visible, animate to 0.0 (invisible).

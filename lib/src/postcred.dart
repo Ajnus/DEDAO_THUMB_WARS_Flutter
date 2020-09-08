@@ -15,20 +15,47 @@ class _PostCreditsPageState extends State<PostCreditsPage>
   AnimationController _controller2;
   double _opacityLevel = 0.0;
 
-  /*_prophecy2(BuildContext context) {
+  _prophecy(BuildContext context) {
     OverlayState overlayState = Overlay.of(context);
-    OverlayEntry overlayEntry = OverlayEntry(builder: (context) {
-      return Scaffold(
-          body: Center(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-            
-          ])));
-    });
+    OverlayEntry overlayEntry = OverlayEntry(
+        builder: (context) => Scaffold(
+                body: Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                  TyperAnimatedTextKit(
+                    text: [
+                      '          \"(...) in a time of great dispair, a child shall be born.\n\n',
+                    ],
+                    textStyle: TextStyle(
+                        fontSize: 15.0,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    textAlign: TextAlign.justify,
+                    speed: Duration(milliseconds: 90),
+                    isRepeatingAnimation: false,
+                    //pause: Duration(seconds: 5),
+                  ),
+                  //await Future.delayed(Duration(seconds: 5)),
+                  TyperAnimatedTextKit(
+                    text: [
+                      '                                                                                         He will destroy the Sith, and bring BALANCE to THE FORCE.\"',
+                    ],
+                    textStyle: TextStyle(
+                        fontSize: 15.0,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    textAlign: TextAlign.justify,
+                    speed: Duration(milliseconds: 90),
+                    isRepeatingAnimation: false,
+                  )
+                ]))));
 
     overlayState.insert(overlayEntry);
-  }*/
+  }
 
   _showPoint(BuildContext context) async {
     OverlayState overlayState = Overlay.of(context);
@@ -177,14 +204,18 @@ class _PostCreditsPageState extends State<PostCreditsPage>
       vsync: this,
     )..forward();
 
-    Future.delayed(Duration(seconds: 11), () {
+    Future.delayed(Duration(seconds: 4), () {
+      _prophecy(context);
+    });
+
+    Future.delayed(Duration(seconds: 4 + 11), () {
       //_showPoint(context);
       _showPoint(context);
       _showJaporOverlay(context);
       _changeOpacity();
     });
 
-    Future.delayed(Duration(seconds: 10 + 9), () {
+    Future.delayed(Duration(seconds: 4 + 10 + 9), () {
       _showPoint(context);
       _changeOpacity();
       //Future.delayed(Duration(milliseconds: 100), () {
@@ -193,10 +224,6 @@ class _PostCreditsPageState extends State<PostCreditsPage>
       //});
       //_showPoint(context);
     });
-
-    /*Future.delayed(Duration(seconds: 10 + 9 + 2), () {
-      
-    });*/
   }
 
   @override
@@ -205,40 +232,6 @@ class _PostCreditsPageState extends State<PostCreditsPage>
       DeviceOrientation.landscapeLeft,
     ]);
     SystemChrome.setEnabledSystemUIOverlays([]);
-    return Scaffold(
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-          TyperAnimatedTextKit(
-            text: [
-              '          \"(...) in a time of great dispair, a child shall be born.\n\n',
-            ],
-            textStyle: TextStyle(
-                fontSize: 15.0,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-            textAlign: TextAlign.justify,
-            speed: Duration(milliseconds: 90),
-            isRepeatingAnimation: false,
-            //pause: Duration(seconds: 5),
-          ),
-          //await Future.delayed(Duration(seconds: 5)),
-          TyperAnimatedTextKit(
-            text: [
-              '                                                                                         He will destroy the Sith, and bring BALANCE to THE FORCE.\"',
-            ],
-            textStyle: TextStyle(
-                fontSize: 15.0,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-            textAlign: TextAlign.justify,
-            speed: Duration(milliseconds: 90),
-            isRepeatingAnimation: false,
-          )
-        ])));
+    return Scaffold();
   }
 }

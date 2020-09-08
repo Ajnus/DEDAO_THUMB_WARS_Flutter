@@ -68,13 +68,13 @@ class _CrawlerState extends State<Crawler> {
             duration: widget.crawlDuration,
             curve: Curves.linear));
     Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(seconds: 40),
       () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => PostCreditsPage())),
+          context, MaterialPageRoute(builder: (context) => LandingPage())),
     );
-    /*Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 3), () {
       background.play(intromusic);
-    });*/
+    });
 
     super.initState();
   }
@@ -84,7 +84,7 @@ class _CrawlerState extends State<Crawler> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    return Scaffold (
+    return Scaffold(
         body: GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, '/choose');
@@ -169,6 +169,7 @@ class _MyBlinkingButtonState extends State<MyBlinkingButton>
               child: MaterialButton(
                 color: Color(0xFFFFFF00),
                 onPressed: () {
+                  //Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ChoosePage()),

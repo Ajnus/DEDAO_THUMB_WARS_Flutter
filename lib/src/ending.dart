@@ -7,6 +7,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'dart:async';
+import 'postcred.dart';
 
 class EndingPage extends StatefulWidget {
   @override
@@ -71,9 +72,9 @@ class _EndingPageState extends State<EndingPage> with TickerProviderStateMixin {
               PositionedTransition(
                 rect: RelativeRectTween(
                   begin: RelativeRect.fromSize(
-                      Rect.fromLTWH(-113, -1022, 1107, 169), biggest),
+                      Rect.fromLTWH(-113.0, -1022.0, 1107.0, 169.0), biggest),
                   end: RelativeRect.fromSize(
-                      Rect.fromLTWH(-113, 77, 1107, 129), biggest),
+                      Rect.fromLTWH(-113.0, 77.0, 1107.0, 129.0), biggest),
                 ).animate(CurvedAnimation(
                     parent: _controller2, curve: Curves.linear)),
                 child:
@@ -86,17 +87,17 @@ class _EndingPageState extends State<EndingPage> with TickerProviderStateMixin {
                 rect: RelativeRectTween(
                   begin: RelativeRect.fromSize(
                       Rect.fromLTWH(
-                          -116,
+                          -116.0,
                           MediaQuery.of(context).size.height - 77 + 970,
-                          1107,
-                          129),
+                          1107.0,
+                          129.0),
                       biggest),
                   end: RelativeRect.fromSize(
                       Rect.fromLTWH(
-                          -116,
+                          -116.0,
                           (MediaQuery.of(context).size.height / 2.0),
-                          1107,
-                          129),
+                          1107.0,
+                          129.0),
                       biggest),
                 ).animate(CurvedAnimation(
                     parent: _controller2, curve: Curves.linear)),
@@ -164,6 +165,12 @@ class _EndingPageState extends State<EndingPage> with TickerProviderStateMixin {
       ..addListener(listener);
     //_videoMetaData = const YoutubeMetaData();
     //_playerState = PlayerState.unknown;
+
+    Future.delayed(const Duration(seconds: 74), () {
+      //Navigator.pop(context);
+      return Navigator.push(
+          context, MaterialPageRoute(builder: (context) => PostCreditsPage()));
+    });
   }
 
   void listener() {
