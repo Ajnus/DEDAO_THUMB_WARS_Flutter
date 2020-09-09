@@ -34,6 +34,9 @@ dependencies:
   youtube_player_flutter: ^7.0.0+7
   flutter_inappwebview: ^4.0.0+4
   animated_text_kit: ^2.2.0
+  video_player: ^0.10.12+2
+  meta: ^1.1.8
+  video_player_platform_interface: ^2.1.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -90,6 +93,16 @@ flutter:
     - assets/this is the end for you, my master(cut).mp3
     - assets/dont try it.mp3
     - assets/Spinclash(vader).mp3
+
+    - assets/Master Skywalker, there are too many of them.mp3
+    - assets/Rey.mp3
+    - flutter_assets/Balance_to_The_Force.mp4
+    - assets/door.mp3
+    - assets/door2.mp3
+    - assets/vadersaber.mp3
+    - assets/vadersaber2.mp3
+    - assets/vadersaber3.mp3
+    - assets/vadersaber4.mp3
 
     - assets/i18n/en.json
     - assets/i18n/pt.json

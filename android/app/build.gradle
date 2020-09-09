@@ -48,6 +48,10 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    aaptOptions {
+    noCompress "mp4"
+    }
 }
 
 flutter {

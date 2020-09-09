@@ -154,7 +154,7 @@ class _EndingPageState extends State<EndingPage> with TickerProviderStateMixin {
           hideControls: true,
           hideThumbnail: true,
           autoPlay: true,
-          endAt: 71,
+          //endAt: 71,
           mute: false,
           disableDragSeek: true,
           loop: false,
@@ -166,21 +166,23 @@ class _EndingPageState extends State<EndingPage> with TickerProviderStateMixin {
     //_videoMetaData = const YoutubeMetaData();
     //_playerState = PlayerState.unknown;
 
-    Future.delayed(const Duration(seconds: 74), () {
+    /*Future.delayed(const Duration(seconds: 74), () {
       //Navigator.pop(context);
-      return Navigator.push(
-          context, MaterialPageRoute(builder: (context) => PostCreditsPage()));
-    });
+      return 
+    });*/
   }
 
-  void listener() {
+  listener() {
     setState(() {
       //_playerState = _controller.value.playerState;
-      if (_controller.value.position.inSeconds == 70) {
+      if (_controller.value.position.inSeconds == 71) {
         int position = _controller.value.position.inSeconds;
         print('*** ENTROU! A POSICAO E:');
         print('$position ***');
         _closeScreenOverlay(context);
+        //await Future.delayed(Duration(seconds: 2));
+        return Navigator.push(context,
+            MaterialPageRoute(builder: (context) => PostCreditsPage()));
       }
     });
   }

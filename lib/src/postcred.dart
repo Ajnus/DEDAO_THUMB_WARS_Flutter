@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/animation.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:video_player/video_player.dart';
 
 class PostCreditsPage extends StatefulWidget {
   @override
@@ -13,7 +15,16 @@ class _PostCreditsPageState extends State<PostCreditsPage>
     with TickerProviderStateMixin {
   AnimationController _controller;
   AnimationController _controller2;
+  VideoPlayerController _vcontroller;
+  static AudioCache player = new AudioCache();
+  static AudioCache player2 = new AudioCache();
   double _opacityLevel = 0.0;
+
+  static const master = 'Master Skywalker, there are too many of them.mp3';
+  static const rey = 'Rey.mp3';
+  static const balance = 'flutter_assets/Balance_to_The_Force.mp4';
+  static const door = 'door2.mp3';
+  static const vadersaber = 'vadersaber4.mp3';
 
   _prophecy(BuildContext context) {
     OverlayState overlayState = Overlay.of(context);
@@ -189,6 +200,18 @@ class _PostCreditsPageState extends State<PostCreditsPage>
       overlayEntry.remove();*/ // { ( { ( { (
   }
 
+  _showVideoOverlay(BuildContext context) async {
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry =
+        OverlayEntry(builder: (context) => VideoPlayer(_vcontroller));
+
+    overlayState.insert(overlayEntry);
+
+    await Future.delayed(Duration(seconds: 5));
+
+    overlayEntry.remove();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -203,6 +226,12 @@ class _PostCreditsPageState extends State<PostCreditsPage>
       duration: Duration(seconds: 42),
       vsync: this,
     )..forward();
+
+    _vcontroller = VideoPlayerController.asset(balance);
+
+    _vcontroller.addListener(() {
+      setState(() {});
+    });
 
     Future.delayed(Duration(seconds: 4), () {
       _prophecy(context);
@@ -223,6 +252,31 @@ class _PostCreditsPageState extends State<PostCreditsPage>
       _wallOverlay2(context);
       //});
       //_showPoint(context);
+    });
+
+    Future.delayed(Duration(seconds: 4 + 10 + 9 + 25), () {
+      player.play(master);
+    });
+
+    Future.delayed(Duration(seconds: 4 + 10 + 9 + 25 + 4), () {
+      player2.play(rey);
+    });
+
+    Future.delayed(Duration(seconds: 4 + 10 + 9 + 25 + 4 + 1), () {
+      player.play(door);
+      _showVideoOverlay(context);
+      _vcontroller.initialize().then((_) => setState(() {}));
+      _vcontroller.play();
+      print('playing');
+    });
+
+    Future.delayed(Duration(seconds: 4 + 10 + 9 + 25 + 4 + 5), () {
+      player2.play(vadersaber);
+    });
+
+    Future.delayed(Duration(seconds: 4 + 10 + 9 + 25 + 4 + 11), () {
+      SystemNavigator.pop();
+      //exit();
     });
   }
 

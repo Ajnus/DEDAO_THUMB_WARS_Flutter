@@ -68,13 +68,13 @@ class _CrawlerState extends State<Crawler> {
             duration: widget.crawlDuration,
             curve: Curves.linear));
     Future.delayed(
-      const Duration(seconds: 40),
+      const Duration(seconds: 1),
       () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LandingPage())),
+          context, MaterialPageRoute(builder: (context) => PostCreditsPage())),
     );
-    Future.delayed(Duration(seconds: 3), () {
+    /*Future.delayed(Duration(seconds: 3), () {
       background.play(intromusic);
-    });
+    });*/
 
     super.initState();
   }

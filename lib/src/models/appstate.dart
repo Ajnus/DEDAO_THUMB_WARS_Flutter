@@ -208,6 +208,10 @@ class AppState extends AppStateModel {
     _changeTab = AppTab.ending;
   }
 
+  void postCred() {
+    _changeTab = AppTab.postcreds;
+  }
+
   void endTrivia() => tabController.value = AppTab.main;
 
   void showSummary() => tabController.value = AppTab.summary;
