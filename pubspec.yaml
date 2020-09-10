@@ -97,12 +97,14 @@ flutter:
     - assets/Master Skywalker, there are too many of them.mp3
     - assets/Rey.mp3
     - flutter_assets/Balance_to_The_Force.mp4
+    - assets/Balance_to_The_Force.mp3
     - assets/door.mp3
     - assets/door2.mp3
     - assets/vadersaber.mp3
     - assets/vadersaber2.mp3
     - assets/vadersaber3.mp3
     - assets/vadersaber4.mp3
+    - assets/vadersaber5.mp3
 
     - assets/i18n/en.json
     - assets/i18n/pt.json

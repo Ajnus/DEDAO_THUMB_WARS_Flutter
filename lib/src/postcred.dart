@@ -23,8 +23,9 @@ class _PostCreditsPageState extends State<PostCreditsPage>
   static const master = 'Master Skywalker, there are too many of them.mp3';
   static const rey = 'Rey.mp3';
   static const balance = 'flutter_assets/Balance_to_The_Force.mp4';
+  static const aubalance = 'Balance_to_The_Force.mp3';
   static const door = 'door2.mp3';
-  static const vadersaber = 'vadersaber4.mp3';
+  static const vadersaber = 'vadersaber5.mp3';
 
   _prophecy(BuildContext context) {
     OverlayState overlayState = Overlay.of(context);
@@ -264,14 +265,18 @@ class _PostCreditsPageState extends State<PostCreditsPage>
 
     Future.delayed(Duration(seconds: 4 + 10 + 9 + 25 + 4 + 1), () {
       player.play(door);
+      Future.delayed(Duration(milliseconds: 600), () {
+        player2.play(aubalance);
+      });
       _showVideoOverlay(context);
       _vcontroller.initialize().then((_) => setState(() {}));
+      _vcontroller.setVolume(0.0);
       _vcontroller.play();
       print('playing');
     });
 
-    Future.delayed(Duration(seconds: 4 + 10 + 9 + 25 + 4 + 5), () {
-      player2.play(vadersaber);
+    Future.delayed(Duration(milliseconds: 4000 + 10000 + 9000 + 25000 + 4000 + 5400), () {
+      player.play(vadersaber);
     });
 
     Future.delayed(Duration(seconds: 4 + 10 + 9 + 25 + 4 + 11), () {
