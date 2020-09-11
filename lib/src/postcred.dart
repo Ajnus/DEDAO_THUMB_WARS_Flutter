@@ -38,7 +38,7 @@ class _PostCreditsPageState extends State<PostCreditsPage>
                   bottom: 70.0,
                   right: 202.0,
                   child: Transform.rotate(
-                      angle: -pi/4  - 5*pi/180.0,
+                      angle: -pi / 4 - 5 * pi / 180.0,
                       child: Container(
                         child: Text('BALANCE to THE FORCE',
                             style: TextStyle(
@@ -277,8 +277,8 @@ class _PostCreditsPageState extends State<PostCreditsPage>
       _showPoint(context);
       _changeOpacity();
       Future.delayed(Duration(milliseconds: 100), () {
-      _wallOverlay(context);
-      _wallOverlay2(context);
+        _wallOverlay(context);
+        _wallOverlay2(context);
       });
       _showPoint(context);
     });
@@ -287,25 +287,25 @@ class _PostCreditsPageState extends State<PostCreditsPage>
       player.play(master);
     });
 
-    Future.delayed(Duration(milliseconds: 4000 + 10000 + 9000 + 23000 + 3800), () {
+    Future.delayed(Duration(milliseconds: 4000 + 10000 + 9000 + 23000 + 3800),
+        () {
       player2.play(rey);
     });
 
     Future.delayed(Duration(seconds: 4 + 10 + 9 + 23 + 4 + 1), () {
-    player.play(door);
-    Future.delayed(Duration(milliseconds: 600), () {
-      player2.play(aubalance);
-    });
-    _showVideoOverlay(context);
-    _vcontroller.initialize().then((_) => setState(() {}));
-    _vcontroller.setVolume(0.0);
-    _vcontroller.play();
-    print('playing');
+      player.play(door);
+      Future.delayed(Duration(milliseconds: 600), () {
+        player2.play(aubalance);
+      });
+      _showVideoOverlay(context);
+      _vcontroller.initialize().then((_) => setState(() {}));
+      _vcontroller.setVolume(0.0);
+      _vcontroller.play();
+      print('playing');
     });
 
     Future.delayed(
-        Duration(milliseconds: 4000 + 10000 + 9000 + 23000 + 4000 + 5400),
-        () {
+        Duration(milliseconds: 4000 + 10000 + 9000 + 23000 + 4000 + 5400), () {
       player.play(vadersaber);
       _balanceText(context);
     });

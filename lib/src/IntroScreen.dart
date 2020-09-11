@@ -67,14 +67,15 @@ class _CrawlerState extends State<Crawler> {
             _scrollController.position.maxScrollExtent,
             duration: widget.crawlDuration,
             curve: Curves.linear));
-    Future.delayed(
-      const Duration(seconds: 1),
-      () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => PostCreditsPage())),
-    );
-    /*Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 40), () {
+      dispose();
+      Navigator.pop(context);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LandingPage()));
+    });
+    Future.delayed(Duration(seconds: 3), () {
       background.play(intromusic);
-    });*/
+    });
 
     super.initState();
   }
@@ -169,7 +170,8 @@ class _MyBlinkingButtonState extends State<MyBlinkingButton>
               child: MaterialButton(
                 color: Color(0xFFFFFF00),
                 onPressed: () {
-                  //Navigator.pop(context);
+                  dispose();
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ChoosePage()),

@@ -181,6 +181,8 @@ class _EndingPageState extends State<EndingPage> with TickerProviderStateMixin {
         print('$position ***');
         _closeScreenOverlay(context);
         //await Future.delayed(Duration(seconds: 2));
+        dispose();
+        Navigator.pop(context);
         return Navigator.push(context,
             MaterialPageRoute(builder: (context) => PostCreditsPage()));
       }

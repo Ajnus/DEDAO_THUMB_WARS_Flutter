@@ -137,7 +137,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     Future.delayed(
       const Duration(seconds: 80), // 40
       () {
-        //Navigator.pop(context);
+        dispose();
+        Navigator.pop(context);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => EndingPage()),
