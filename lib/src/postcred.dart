@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,6 +27,33 @@ class _PostCreditsPageState extends State<PostCreditsPage>
   static const aubalance = 'Balance_to_The_Force.mp3';
   static const door = 'door2.mp3';
   static const vadersaber = 'vadersaber5.mp3';
+
+  _balanceText(BuildContext context) async {
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry = OverlayEntry(
+        builder: (context) => Dialog(
+            backgroundColor: Colors.transparent,
+            child: Stack(children: <Widget>[
+              Positioned(
+                  bottom: 70.0,
+                  right: 202.0,
+                  child: Transform.rotate(
+                      angle: -pi/4  - 5*pi/180.0,
+                      child: Container(
+                        child: Text('BALANCE to THE FORCE',
+                            style: TextStyle(
+                                fontSize: 22.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                      )))
+            ])));
+
+    overlayState.insert(overlayEntry);
+
+    await Future.delayed(Duration(seconds: 2));
+
+    overlayEntry.remove();
+  }
 
   _prophecy(BuildContext context) {
     OverlayState overlayState = Overlay.of(context);
@@ -248,38 +276,41 @@ class _PostCreditsPageState extends State<PostCreditsPage>
     Future.delayed(Duration(seconds: 4 + 10 + 9), () {
       _showPoint(context);
       _changeOpacity();
-      //Future.delayed(Duration(milliseconds: 100), () {
+      Future.delayed(Duration(milliseconds: 100), () {
       _wallOverlay(context);
       _wallOverlay2(context);
-      //});
-      //_showPoint(context);
+      });
+      _showPoint(context);
     });
 
-    Future.delayed(Duration(seconds: 4 + 10 + 9 + 25), () {
+    Future.delayed(Duration(seconds: 4 + 10 + 9 + 23), () {
       player.play(master);
     });
 
-    Future.delayed(Duration(seconds: 4 + 10 + 9 + 25 + 4), () {
+    Future.delayed(Duration(milliseconds: 4000 + 10000 + 9000 + 23000 + 3800), () {
       player2.play(rey);
     });
 
-    Future.delayed(Duration(seconds: 4 + 10 + 9 + 25 + 4 + 1), () {
-      player.play(door);
-      Future.delayed(Duration(milliseconds: 600), () {
-        player2.play(aubalance);
-      });
-      _showVideoOverlay(context);
-      _vcontroller.initialize().then((_) => setState(() {}));
-      _vcontroller.setVolume(0.0);
-      _vcontroller.play();
-      print('playing');
+    Future.delayed(Duration(seconds: 4 + 10 + 9 + 23 + 4 + 1), () {
+    player.play(door);
+    Future.delayed(Duration(milliseconds: 600), () {
+      player2.play(aubalance);
+    });
+    _showVideoOverlay(context);
+    _vcontroller.initialize().then((_) => setState(() {}));
+    _vcontroller.setVolume(0.0);
+    _vcontroller.play();
+    print('playing');
     });
 
-    Future.delayed(Duration(milliseconds: 4000 + 10000 + 9000 + 25000 + 4000 + 5400), () {
+    Future.delayed(
+        Duration(milliseconds: 4000 + 10000 + 9000 + 23000 + 4000 + 5400),
+        () {
       player.play(vadersaber);
+      _balanceText(context);
     });
 
-    Future.delayed(Duration(seconds: 4 + 10 + 9 + 25 + 4 + 11), () {
+    Future.delayed(Duration(seconds: 4 + 10 + 9 + 23 + 4 + 11), () {
       SystemNavigator.pop();
       //exit();
     });
