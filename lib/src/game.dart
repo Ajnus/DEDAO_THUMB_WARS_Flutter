@@ -7,6 +7,10 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
 //import 'package:flare_flutter/flare_actor.dart';
+import 'package:flame/animation.dart'
+    as animation; // imports the Animation class under animation.Animation
+import 'package:flame/flame.dart'; // imports the Flame helper class
+import 'package:flame/position.dart'; // imports the Position class
 import 'ending.dart';
 
 class GamePage extends StatefulWidget {
@@ -37,10 +41,12 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       "John Williams - Battle of the Heroes (Official Audio).mp3";
 
   AnimationController _controller;
-  AnimationController _controller2;
+  AnimationController _controllerH;
+  AnimationController _controllerH2;
   Animation<Offset> _offsetAnimation;
-  Animation<Offset> _offsetAnimation2;
 
+  Curve _curve;
+  Offset _offset;
   Color color = Colors.grey;
   double _opacityLevel = 1.0;
 
@@ -96,21 +102,45 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       vsync: this,
     )..repeat(reverse: true);
 
-    _controller2 = AnimationController(
-      duration: const Duration(seconds: 1),
+    _controllerH = AnimationController(
+      duration: Duration(seconds: 1),
       vsync: this,
-    )..repeat(reverse: true);
+    )..forward();
+
+    _controllerH2 = AnimationController(
+      duration: Duration(seconds: 7),
+      vsync: this,
+    )..forward();
+
+    _curve = Curves.easeInOut;
+    _offset = const Offset(0.0, -1.5);
 
     _offsetAnimation = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(0.0, -1.5),
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+      end: _offset,
+    ).animate(CurvedAnimation(parent: _controller, curve: _curve));
 
-    //
-    _offsetAnimation2 = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0.0, -1.5),
-    ).animate(CurvedAnimation(parent: _controller2, curve: Curves.easeInOut));
+    //showOverlay3(context);
+    Future.delayed(Duration(milliseconds: 1), () {
+      _showHero1(context);
+      _showHero2(context);
+    });
+
+    /*Future.delayed(Duration(seconds: 1), () {
+      _slideHeroes(context);
+    });*/
+
+    Future.delayed(Duration(seconds: 10), () {
+      setState(() {
+        _offset = const Offset(0.0, -5.0);
+      });
+    });
+
+    Future.delayed(Duration(seconds: 20), () {
+      setState(() {
+        _curve = Curves.easeOutQuart;
+      });
+    });
 
     Future.delayed(Duration(milliseconds: 61950), () {
       showOverlay3A(context);
@@ -134,7 +164,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       showOverlay4(context);
       //_changeOpacity();
     });
-    Future.delayed(
+    /*Future.delayed(
       const Duration(seconds: 80), // 40
       () {
         dispose();
@@ -144,7 +174,71 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
           MaterialPageRoute(builder: (context) => EndingPage()),
         );
       },
-    );
+    );*/
+  }
+
+  _showHero1(BuildContext context) {
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry = OverlayEntry(builder: (context) {
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final Size biggest = constraints.biggest;
+
+          return Stack(children: [
+            PositionedTransition(
+              rect: RelativeRectTween(
+                begin: RelativeRect.fromSize(
+                    Rect.fromLTWH(-83.0 * 7, 400.0, 98.0, 83.0), biggest),
+                end: RelativeRect.fromSize(
+                    Rect.fromLTWH(0.0, 400.0, 98.0, 83.0), biggest),
+              ).animate(
+                  CurvedAnimation(parent: _controllerH2, curve: Curves.linear)),
+              child: Image.asset('assets/sprites/ana_base.png'),
+            )
+          ]);
+        },
+      );
+    });
+
+    overlayState.insert(overlayEntry);
+
+    //await Future.delayed(Duration(seconds: 2));
+
+    //overlayEntry.remove();
+  }
+
+  _showHero2(BuildContext context) {
+    OverlayState overlayState = Overlay.of(context);
+    OverlayEntry overlayEntry = OverlayEntry(builder: (context) {
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          final Size biggest = constraints.biggest;
+
+          return Stack(children: [
+            PositionedTransition(
+              rect: RelativeRectTween(
+                begin: RelativeRect.fromSize(
+                    Rect.fromLTWH(
+                        MediaQuery.of(context).size.width, 361.0, 80.0, 124.0),
+                    biggest),
+                end: RelativeRect.fromSize(
+                    Rect.fromLTWH(MediaQuery.of(context).size.width - 80.0,
+                        361.0, 80.0, 124.0),
+                    biggest),
+              ).animate(
+                  CurvedAnimation(parent: _controllerH, curve: Curves.linear)),
+              child: Image.asset('assets/sprites/obi_base.png'),
+            )
+          ]);
+        },
+      );
+    });
+
+    overlayState.insert(overlayEntry);
+
+    //await Future.delayed(Duration(seconds: 2));
+
+    //overlayEntry.remove();
   }
 
   showOverlay(BuildContext context) async {
@@ -237,7 +331,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   @override
   void dispose() {
     _controller.dispose();
-    _controller2.dispose();
+    _controllerH.dispose();
     super.dispose();
   }
 
@@ -299,6 +393,20 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                 fontSize: 25,
               ),
             ),
+            Text(
+              '$_counter',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 25,
+              ),
+            ),
+            Text(
+              '$_counter',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 25,
+              ),
+            ),
             Image.asset('assets/flaws.jpg'),
           ],
         ),
@@ -315,7 +423,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
               //crossAxisAlignment: CrossAxisAlignment.baseline,
               children: <Widget>[
             SlideTransition(
-              position: _offsetAnimation2,
+              position: _offsetAnimation,
               child: FloatingActionButton(
                 heroTag: "btn1",
                 backgroundColor: Colors.red,

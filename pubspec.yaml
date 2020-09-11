@@ -20,9 +20,9 @@ androidX: true # Add this line.
 
 dependencies:
   isolate_handler: ^0.3.1
-  audioplayers: ^0.11.0
-  flare_flutter: ^1.5.0
-  flare_dart: ^1.4.0
+  audioplayers: ^0.15.1
+  flare_flutter: ^2.0.1
+  flare_dart: ^2.3.4
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -37,6 +37,9 @@ dependencies:
   video_player: ^0.10.12+2
   meta: ^1.1.8
   video_player_platform_interface: ^2.1.1
+  flame: ^0.26.0
+  
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -61,6 +64,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/sprites/
     - assets/images/heroes/
     - assets/vadervsobiwan.jpg
     - assets/flaws.jpg
