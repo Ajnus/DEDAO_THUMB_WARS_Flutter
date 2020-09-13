@@ -67,15 +67,15 @@ class _CrawlerState extends State<Crawler> {
             _scrollController.position.maxScrollExtent,
             duration: widget.crawlDuration,
             curve: Curves.linear));
-    Future.delayed(Duration(seconds: 40), () {
+    Future.delayed(Duration(seconds: 1), () {
       dispose();
       Navigator.pop(context);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LandingPage()));
     });
-    Future.delayed(Duration(seconds: 3), () {
+    /*Future.delayed(Duration(seconds: 3), () {
       background.play(intromusic);
-    });
+    });*/
 
     super.initState();
   }
@@ -109,7 +109,7 @@ class _CrawlerState extends State<Crawler> {
           FlutterLogo(size: width / 1.5),
           SizedBox(height: height - 190),
           Center(
-              child: Text("Ajna's Enterprise Studios ©",
+              child: Text("Ajna's Enterprise Studios",
                   style: new TextStyle(
                     fontSize: 10.0,
                     fontFamily: 'Inconsolata',

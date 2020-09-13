@@ -11,6 +11,7 @@ import 'package:flame/animation.dart'
     as animation; // imports the Animation class under animation.Animation
 import 'package:flame/flame.dart'; // imports the Flame helper class
 import 'package:flame/position.dart'; // imports the Position class
+import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 import 'ending.dart';
 
 class GamePage extends StatefulWidget {
@@ -42,8 +43,11 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   AnimationController _controller;
   AnimationController _controllerH;
-  AnimationController _controllerH2;
+  //AnimationController _controllerH2;
   Animation<Offset> _offsetAnimation;
+
+  Animation<double> positionAnimation;
+  Animation<double> positionAnimation2;
 
   Curve _curve;
   Offset _offset;
@@ -103,14 +107,14 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     )..repeat(reverse: true);
 
     _controllerH = AnimationController(
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds: 10),
       vsync: this,
     )..forward();
 
-    _controllerH2 = AnimationController(
-      duration: Duration(seconds: 7),
+    /*_controllerH2 = AnimationController(
+      duration: Duration(seconds: 10),
       vsync: this,
-    )..forward();
+    )..forward();*/
 
     _curve = Curves.easeInOut;
     _offset = const Offset(0.0, -1.5);
@@ -120,15 +124,32 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       end: _offset,
     ).animate(CurvedAnimation(parent: _controller, curve: _curve));
 
-    //showOverlay3(context);
-    Future.delayed(Duration(milliseconds: 1), () {
-      _showHero1(context);
-      _showHero2(context);
-    });
+    final alignSec = TweenSequence<double>([
+      TweenSequenceItem<double>(
+          tween: Tween<double>(begin: 412.0, end: 332.0), weight: 10.0),
+      TweenSequenceItem<double>(
+          tween: Tween<double>(begin: 332.0, end: 332.0), weight: 88.0),
+      TweenSequenceItem<double>(
+          tween: Tween<double>(begin: 332.0, end: 216.0), weight: 2.0)
+    ]);
 
-    /*Future.delayed(Duration(seconds: 1), () {
-      _slideHeroes(context);
-    });*/
+    final alignSec2 = TweenSequence<double>([
+      TweenSequenceItem<double>(
+          tween: Tween<double>(begin: -686.0, end: 0.0), weight: 70.0),
+      TweenSequenceItem<double>(
+          tween: Tween<double>(begin: 0.0, end: 0.0), weight: 28.0),
+      TweenSequenceItem<double>(
+          tween: Tween<double>(begin: 0.0, end: 98.0), weight: 2.0)
+    ]);
+
+    positionAnimation = alignSec
+        .animate(CurvedAnimation(parent: _controllerH, curve: Curves.linear));
+    positionAnimation2 = alignSec2
+        .animate(CurvedAnimation(parent: _controllerH, curve: Curves.linear));
+
+    Future.delayed(Duration(milliseconds: 9275), () {
+      player2.play('speed.mp3');
+    });
 
     Future.delayed(Duration(seconds: 10), () {
       setState(() {
@@ -177,70 +198,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     );*/
   }
 
-  _showHero1(BuildContext context) {
-    OverlayState overlayState = Overlay.of(context);
-    OverlayEntry overlayEntry = OverlayEntry(builder: (context) {
-      return LayoutBuilder(
-        builder: (context, constraints) {
-          final Size biggest = constraints.biggest;
-
-          return Stack(children: [
-            PositionedTransition(
-              rect: RelativeRectTween(
-                begin: RelativeRect.fromSize(
-                    Rect.fromLTWH(-83.0 * 7, 400.0, 98.0, 83.0), biggest),
-                end: RelativeRect.fromSize(
-                    Rect.fromLTWH(0.0, 400.0, 98.0, 83.0), biggest),
-              ).animate(
-                  CurvedAnimation(parent: _controllerH2, curve: Curves.linear)),
-              child: Image.asset('assets/sprites/ana_base.png'),
-            )
-          ]);
-        },
-      );
-    });
-
-    overlayState.insert(overlayEntry);
-
-    //await Future.delayed(Duration(seconds: 2));
-
-    //overlayEntry.remove();
-  }
-
-  _showHero2(BuildContext context) {
-    OverlayState overlayState = Overlay.of(context);
-    OverlayEntry overlayEntry = OverlayEntry(builder: (context) {
-      return LayoutBuilder(
-        builder: (context, constraints) {
-          final Size biggest = constraints.biggest;
-
-          return Stack(children: [
-            PositionedTransition(
-              rect: RelativeRectTween(
-                begin: RelativeRect.fromSize(
-                    Rect.fromLTWH(
-                        MediaQuery.of(context).size.width, 361.0, 80.0, 124.0),
-                    biggest),
-                end: RelativeRect.fromSize(
-                    Rect.fromLTWH(MediaQuery.of(context).size.width - 80.0,
-                        361.0, 80.0, 124.0),
-                    biggest),
-              ).animate(
-                  CurvedAnimation(parent: _controllerH, curve: Curves.linear)),
-              child: Image.asset('assets/sprites/obi_base.png'),
-            )
-          ]);
-        },
-      );
-    });
-
-    overlayState.insert(overlayEntry);
-
-    //await Future.delayed(Duration(seconds: 2));
-
-    //overlayEntry.remove();
-  }
-
   showOverlay(BuildContext context) async {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = OverlayEntry(
@@ -276,7 +233,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     OverlayEntry overlayEntry = OverlayEntry(
         /*opaque: true,*/ builder: (context) {
       return Positioned(
-          bottom: 148.0,
+          bottom: 114.0,
           right: 0.0,
           child: AnimatedOpacity(
               // If the widget is visible, animate to 0.0 (invisible).
@@ -352,67 +309,69 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
           ),
         ),
       ),
-      body: /*Container(
-        child:*/
-          Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            /*Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Stack(children: <Widget>[
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              /*Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Image.asset('assets/images/anavader.png'),
                 Image.asset('assets/images/obiwan.png'),
               ],
               ),*/
-            Image.asset('assets/vadervsobiwan.jpg'),
-            if (_counter > 0)
-              Text(
-                'The Light Side the Force wins by:',
-                style: TextStyle(
-                  fontSize: 19,
+              Image.asset('assets/vadervsobiwan.jpg'),
+              if (_counter > 0)
+                Text(
+                  'The Light Side the Force wins by:',
+                  style: TextStyle(
+                    fontSize: 19,
+                  ),
+                )
+              else if (_counter < 0)
+                Text(
+                  'The Dark Side the Force wins by:',
+                  style: TextStyle(
+                    fontSize: 19,
+                  ),
+                )
+              else
+                Text(
+                  'The Balance of the Force wins.',
+                  style: TextStyle(
+                    fontSize: 19,
+                  ),
                 ),
-              )
-            else if (_counter < 0)
               Text(
-                'The Dark Side the Force wins by:',
+                '$_counter',
                 style: TextStyle(
-                  fontSize: 19,
-                ),
-              )
-            else
-              Text(
-                'The Balance of the Force wins.',
-                style: TextStyle(
-                  fontSize: 19,
+                  color: color,
+                  fontSize: 25,
                 ),
               ),
-            Text(
-              '$_counter',
-              style: TextStyle(
-                color: color,
-                fontSize: 25,
-              ),
-            ),
-            Text(
-              '$_counter',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 25,
-              ),
-            ),
-            Text(
-              '$_counter',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 25,
-              ),
-            ),
-            Image.asset('assets/flaws.jpg'),
-          ],
+              Container(height: 65.0),
+              Image.asset('assets/flaws.jpg'),
+            ],
+          ),
         ),
-      ),
-      //),
-
+        AnimatedBuilder(
+            animation: _controllerH,
+            builder: (BuildContext context, Widget child) {
+              return Positioned(
+                  left: positionAnimation.value,
+                  top: 306.0,
+                  child: Image.asset('assets/sprites/obi_base.png'));
+            }),
+        AnimatedBuilder(
+            animation: _controllerH,
+            builder: (BuildContext context, Widget child) {
+              return Positioned(
+                left: positionAnimation2.value,
+                top: 347.0,
+                child: Image.asset('assets/sprites/ana_base.png'),
+              );
+            })
+      ]),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
         child: Container(height: 50.0),

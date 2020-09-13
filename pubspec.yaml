@@ -38,6 +38,7 @@ dependencies:
   meta: ^1.1.8
   video_player_platform_interface: ^2.1.1
   flame: ^0.26.0
+  flutter_sequence_animation: ^3.0.1
   
 
 
@@ -109,6 +110,7 @@ flutter:
     - assets/vadersaber3.mp3
     - assets/vadersaber4.mp3
     - assets/vadersaber5.mp3
+    - assets/speed.mp3
 
     - assets/i18n/en.json
     - assets/i18n/pt.json
