@@ -3,6 +3,10 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:counter/src/models/appstate.dart';
 import 'package:counter/src/styles.dart';
+import 'package:flame/sprite.dart';
+import 'package:flame/spritesheet.dart';
+import 'package:flame/widgets/animation_widget.dart';
+import 'package:flame/widgets/sprite_widget.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
@@ -11,7 +15,7 @@ import 'package:flame/animation.dart'
     as animation; // imports the Animation class under animation.Animation
 import 'package:flame/flame.dart'; // imports the Flame helper class
 import 'package:flame/position.dart'; // imports the Position class
-import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
+//import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 import 'ending.dart';
 
 class GamePage extends StatefulWidget {
@@ -53,6 +57,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   Offset _offset;
   Color color = Colors.grey;
   double _opacityLevel = 1.0;
+
+  //Sprite _sprite;
+  //animation.Animation _animation;
+
+  var WIDTH = 249.0;
+  var HEIGHT = 83.0;
+  static const AMOUNT = 5;
+
+  //Sprite player = Sprite('player.png');
 
   void _incrementCounter() {
     setState(() {
@@ -97,9 +110,16 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     setState(() => _opacityLevel = _opacityLevel == 0 ? 1.0 : 0.0);
   }
 
+  //_aniLoad() async {}
+
   @override
   void initState() {
     super.initState();
+
+    print('anaHeroOverlayIN');
+    anaHeroOverlay(context);
+    obiHeroOverlay(context);
+    print('anaHeroOverlayOUT');
 
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
@@ -285,6 +305,100 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     }
   }
 
+  anaHeroOverlay(BuildContext context) async {
+    OverlayState overlayState = Overlay.of(context);
+    const sprite =
+        'sprites/ana_standgreen-removebg-previe(4).png';
+    const WIDTH = 86;
+    const HEIGHT = 127;
+
+    /*Sprite _sprite = await Sprite.loadSprite(sprite,
+        width: 78.0, height: 115.0);*/
+
+    await Flame.images.load(sprite);
+
+    final _animationSpriteSheet = SpriteSheet(
+      imageName: sprite,
+      columns: 5,
+      rows: 1,
+      textureWidth: WIDTH,
+      textureHeight: HEIGHT,
+    );
+
+    animation.Animation _animation = _animationSpriteSheet.createAnimation(
+      0,
+      stepTime: 0.2,
+      to: 5,
+    );
+
+    // ignore: deprecated_member_use
+    /*Flame.util.animationAsWidget(
+        Position(WIDTH, HEIGHT),
+        animation.Animation.sequenced('ana_stand2-removebg-preview(2).png', AMOUNT,
+            textureWidth: 49.8));*/
+
+    OverlayEntry overlayEntry = OverlayEntry(
+        builder: (context) => Positioned(
+            bottom: 360.0,
+            left: 128.0,
+            child: Container(
+                width: WIDTH.toDouble(),
+                height: HEIGHT.toDouble(),
+                child: AnimationWidget(animation: _animation))));
+
+    overlayState.insert(overlayEntry);
+
+    //await Future.delayed(Duration(seconds: 2));
+
+    //overlayEntry.remove();
+  }
+
+  obiHeroOverlay(BuildContext context) async {
+    OverlayState overlayState = Overlay.of(context);
+    const sprite = 'sprites/obi_stand_1_-removebg-preview-removebg-preview.png';
+    const WIDTH = 123;
+    const HEIGHT = 127;
+    /*Sprite _sprite = await Sprite.loadSprite(sprite,
+        width: 78.0, height: 115.0);*/
+
+    await Flame.images.load(sprite);
+
+    final _animationSpriteSheet = SpriteSheet(
+      imageName: sprite,
+      columns: 5,
+      rows: 1,
+      textureWidth: WIDTH,
+      textureHeight: HEIGHT,
+    );
+
+    animation.Animation _animation = _animationSpriteSheet.createAnimation(
+      0,
+      stepTime: 0.2,
+      to: 5,
+    );
+
+    // ignore: deprecated_member_use
+    /*Flame.util.animationAsWidget(
+        Position(WIDTH, HEIGHT),
+        animation.Animation.sequenced('ana_stand2-removebg-preview(2).png', AMOUNT,
+            textureWidth: 49.8));*/
+
+    OverlayEntry overlayEntry = OverlayEntry(
+        builder: (context) => Positioned(
+            bottom: 360.0,
+            right: 128.0,
+            child: Container(
+                width: WIDTH.toDouble(),
+                height: HEIGHT.toDouble(),
+                child: AnimationWidget(animation: _animation))));
+
+    overlayState.insert(overlayEntry);
+
+    //await Future.delayed(Duration(seconds: 2));
+
+    //overlayEntry.remove();
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -360,7 +474,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
               return Positioned(
                   left: positionAnimation.value,
                   top: 306.0,
-                  child: Image.asset('assets/sprites/obi_base.png'));
+                  child: Image.asset('assets/images/sprites/obi_base.png'));
             }),
         AnimatedBuilder(
             animation: _controllerH,
@@ -368,7 +482,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
               return Positioned(
                 left: positionAnimation2.value,
                 top: 347.0,
-                child: Image.asset('assets/sprites/ana_base.png'),
+                child: Image.asset(
+                    'assets/images/sprites/ana_base2-removebg-preview.png'),
               );
             })
       ]),
