@@ -57,6 +57,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   Offset _offset;
   Color color = Colors.grey;
   double _opacityLevel = 1.0;
+  double _heroOpacityLevel = 1.0;
 
   //Sprite _sprite;
   //animation.Animation _animation;
@@ -105,9 +106,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       color = Colors.grey;
   }
 
-  _changeOpacity() async {
-    await Future.delayed(Duration(seconds: 1));
-    setState(() => _opacityLevel = _opacityLevel == 0 ? 1.0 : 0.0);
+  _changeOpacity(String who) async {
+    if (who == 'overlay') {
+      await Future.delayed(Duration(seconds: 1));
+      setState(() => _opacityLevel = _opacityLevel == 0 ? 1.0 : 0.0);
+    }
+    if (who == 'hero') {
+      await Future.delayed(Duration(seconds: 1));
+      setState(() => _heroOpacityLevel = _heroOpacityLevel == 0 ? 1.0 : 0.0);
+    }
   }
 
   //_aniLoad() async {}
@@ -115,11 +122,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
-    print('anaHeroOverlayIN');
-    anaHeroOverlay(context);
-    obiHeroOverlay(context);
-    print('anaHeroOverlayOUT');
+    ;
 
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
@@ -171,25 +174,30 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       player2.play('speed.mp3');
     });
 
-    Future.delayed(Duration(seconds: 10), () {
+    Future.delayed(Duration(seconds: 9), () {
       setState(() {
-        _offset = const Offset(0.0, -5.0);
+        //_offset = const Offset(0.0, -5.0);
+        //showPointOverlay(context, MediaQuery.of(context).size.height/2.0, MediaQuery.of(context).size.width/2.0 + 30.0);
+        _changeOpacity('hero');
       });
     });
 
-    Future.delayed(Duration(seconds: 20), () {
+    Future.delayed(Duration(seconds: 10), () {
       setState(() {
         _curve = Curves.easeOutQuart;
+        anaHeroOverlay(context);
+        obiHeroOverlay(context);
+        
       });
     });
 
     Future.delayed(Duration(milliseconds: 61950), () {
-      showOverlay3A(context);
+      showPointOverlay(context, 110.0, 0.0);
     });
 
     Future.delayed(Duration(milliseconds: 62950), () {
       showOverlay3(context);
-      _changeOpacity();
+      _changeOpacity('overlay');
       //Future.delayed(Duration(milliseconds: 47050), () { // ->
     });
 
@@ -272,12 +280,12 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     overlayEntry.remove();*/
   }
 
-  showOverlay3A(BuildContext context) async {
+  showPointOverlay(BuildContext context, double bottom, double right) async {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = OverlayEntry(
         builder: (context) => Positioned(
-            bottom: 110.0,
-            right: 0.0,
+            bottom: bottom,
+            right: right,
             child: Image.asset('assets/images/point.png')));
 
     overlayState.insert(overlayEntry);
@@ -307,8 +315,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   anaHeroOverlay(BuildContext context) async {
     OverlayState overlayState = Overlay.of(context);
-    const sprite =
-        'sprites/ana_standgreen-removebg-previe(4).png';
+    const sprite = 'sprites/ana_standgreen-removebg-previe(4).png';
     const WIDTH = 86;
     const HEIGHT = 127;
 
@@ -474,17 +481,24 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
               return Positioned(
                   left: positionAnimation.value,
                   top: 306.0,
-                  child: Image.asset('assets/images/sprites/obi_base.png'));
+                  child: AnimatedOpacity(
+                      opacity: _heroOpacityLevel,
+                      duration: Duration(milliseconds: 100),
+                      child:
+                          Image.asset('assets/images/sprites/obi_base.png')));
             }),
         AnimatedBuilder(
             animation: _controllerH,
             builder: (BuildContext context, Widget child) {
               return Positioned(
-                left: positionAnimation2.value,
-                top: 347.0,
-                child: Image.asset(
-                    'assets/images/sprites/ana_base2-removebg-preview.png'),
-              );
+                  left: positionAnimation2.value,
+                  top: 347.0,
+                  child: AnimatedOpacity(
+                    opacity: _heroOpacityLevel,
+                    duration: Duration(milliseconds: 100),
+                    child: Image.asset(
+                        'assets/images/sprites/ana_base2-removebg-preview.png'),
+                  ));
             })
       ]),
       bottomNavigationBar: BottomAppBar(
