@@ -51,6 +51,7 @@ class HeroesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _switchHeroes();
+
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
