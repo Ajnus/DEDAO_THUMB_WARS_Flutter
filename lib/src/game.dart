@@ -58,13 +58,18 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   Color color = Colors.grey;
   double _opacityLevel = 1.0;
   double _heroOpacityLevel = 1.0;
+  int animationID = 0;
+  double _position = 0.0;
+
+  OverlayState overlayState;
+  OverlayEntry overlayEntry;
 
   //Sprite _sprite;
   //animation.Animation _animation;
 
-  var WIDTH = 249.0;
-  var HEIGHT = 83.0;
-  static const AMOUNT = 5;
+  //var WIDTH = 249.0;
+  //var HEIGHT = 83.0;
+  //static const AMOUNT = 5;
 
   //Sprite player = Sprite('player.png');
 
@@ -74,6 +79,10 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       int i;
       i = new Random().nextInt(11);
       player.play('$i.mp3');
+
+      _position = _position - 20.0;
+
+      obiHeroOverlay(context);
 
       _counter++;
     });
@@ -87,13 +96,38 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     });
   }
 
-  void _decrementCounter() {
+  void _decrementCounter() async {
     setState(() {
       int i;
       i = new Random().nextInt(11);
       player.play('$i.mp3');
+      overlayEntry.remove();
+      //overlayState.deactivate();
+      //overlayState.dispose();
+      animationID = 1;
+      anaHeroOverlay(
+        context,
+        animationID, /*init: true*/
+      );
+      _position = _position + 20.0;
+
+      //await Future.delayed(Duration(seconds: 2));
+
+      //anaHeroOverlay.hashCode.
+      //anaHeroOverlay(context, animationID, init: true);
 
       _counter--;
+    });
+
+    await Future.delayed(Duration(milliseconds: 1200));
+
+    setState(() {
+      overlayEntry.remove();
+      animationID = 0;
+      anaHeroOverlay(
+        context,
+        animationID, /*init: true*/
+      );
     });
   }
 
@@ -183,12 +217,11 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     });
 
     Future.delayed(Duration(seconds: 10), () {
-      setState(() {
-        _curve = Curves.easeOutQuart;
-        anaHeroOverlay(context);
-        obiHeroOverlay(context);
-        
-      });
+      //setState(() {
+      _curve = Curves.easeOutQuart;
+      anaHeroOverlay(context, animationID);
+      obiHeroOverlay(context);
+      //});
     });
 
     Future.delayed(Duration(milliseconds: 61950), () {
@@ -313,11 +346,37 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     }
   }
 
-  anaHeroOverlay(BuildContext context) async {
-    OverlayState overlayState = Overlay.of(context);
-    const sprite = 'sprites/ana_standgreen-removebg-previe(4).png';
-    const WIDTH = 86;
-    const HEIGHT = 127;
+  anaHeroOverlay(
+      BuildContext context, int animationID) async {
+    overlayState = Overlay.of(context);
+    String sprite;
+    int width;
+    int height;
+    int columns;
+    double stepTime;
+    bool loop = true;
+    //bool _init = init;
+
+    int _animationID = animationID;
+
+    switch (_animationID) {
+      case 1:
+        sprite = 'sprites/ana_attack1_right_height-removebg-preview.png';
+        width = 131;
+        height = 127;
+        columns = 12;
+        stepTime = 0.1;
+        loop = false;
+        break;
+      case 0:
+        sprite = 'sprites/ana_standgreen-removebg-preview-final.png';
+        width = 86;
+        height = 127;
+        columns = 5;
+        stepTime = 0.2;
+        loop = true;
+        break;
+    }
 
     /*Sprite _sprite = await Sprite.loadSprite(sprite,
         width: 78.0, height: 115.0);*/
@@ -326,16 +385,17 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     final _animationSpriteSheet = SpriteSheet(
       imageName: sprite,
-      columns: 5,
+      columns: columns,
       rows: 1,
-      textureWidth: WIDTH,
-      textureHeight: HEIGHT,
+      textureWidth: width,
+      textureHeight: height,
     );
 
     animation.Animation _animation = _animationSpriteSheet.createAnimation(
       0,
-      stepTime: 0.2,
-      to: 5,
+      stepTime: stepTime,
+      to: columns,
+      loop: loop,
     );
 
     // ignore: deprecated_member_use
@@ -344,16 +404,28 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         animation.Animation.sequenced('ana_stand2-removebg-preview(2).png', AMOUNT,
             textureWidth: 49.8));*/
 
-    OverlayEntry overlayEntry = OverlayEntry(
+    /*if (_init) {
+      
+    }*/
+
+    overlayEntry = OverlayEntry(
         builder: (context) => Positioned(
             bottom: 360.0,
-            left: 128.0,
+            left: 128.0 + _position,
             child: Container(
-                width: WIDTH.toDouble(),
-                height: HEIGHT.toDouble(),
+                width: width.toDouble(),
+                height: height.toDouble(),
                 child: AnimationWidget(animation: _animation))));
 
+    //if (!_init) {
     overlayState.insert(overlayEntry);
+    //init = true;
+    //} else{
+    //overlayEntry.remove();
+    //overlayState.dispose();
+    //overlayState.insert(overlayEntry);
+    //}
+    //}
 
     //await Future.delayed(Duration(seconds: 2));
 
@@ -393,7 +465,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     OverlayEntry overlayEntry = OverlayEntry(
         builder: (context) => Positioned(
             bottom: 360.0,
-            right: 128.0,
+            left: MediaQuery.of(context).size.width -128.0 - 123.0 + _position,
             child: Container(
                 width: WIDTH.toDouble(),
                 height: HEIGHT.toDouble(),
@@ -406,6 +478,41 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     //overlayEntry.remove();
   }
 
+  /*anaAttack1(BuildContext context) async {
+    OverlayState overlayState = Overlay.of(context);
+    const sprite = 'sprites/ana_attack1_right_height-removebg-preview.png';
+    const WIDTH = 131;
+    const HEIGHT = 127;
+
+    await Flame.images.load(sprite);
+
+    final _animationSpriteSheet = SpriteSheet(
+      imageName: sprite,
+      columns: 12,
+      rows: 1,
+      textureWidth: WIDTH,
+      textureHeight: HEIGHT,
+    );
+
+    animation.Animation _animation = _animationSpriteSheet.createAnimation(
+      0,
+      stepTime: 0.1,
+      to: 12,
+      loop: false,
+    );
+
+    OverlayEntry overlayEntry = OverlayEntry(
+        builder: (context) => Positioned(
+            bottom: 360.0,
+            left: 128.0,
+            child: Container(
+                width: WIDTH.toDouble(),
+                height: HEIGHT.toDouble(),
+                child: AnimationWidget(animation: _animation))));
+
+    overlayState.insert(overlayEntry);
+  }*/
+
   @override
   void dispose() {
     _controller.dispose();
@@ -417,126 +524,135 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     _colorCheck();
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('DEDão WARS'),
-        automaticallyImplyLeading: false,
-        textTheme: TextTheme(
-          title: TextStyle(
-            fontFamily: 'StarJedi',
-            color: Color(0xFFFFFF00),
-            fontSize: 25.0,
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        color: Colors.black,
+        home: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            centerTitle: true,
+            title: Text('DEDão WARS'),
+            automaticallyImplyLeading: false,
+            textTheme: TextTheme(
+              title: TextStyle(
+                fontFamily: 'StarJedi',
+                color: Color(0xFFFFFF00),
+                fontSize: 25.0,
+              ),
+            ),
           ),
-        ),
-      ),
-      body: Stack(children: <Widget>[
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              /*Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          backgroundColor: Colors.black,
+          body: Stack(children: <Widget>[
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  /*Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Image.asset('assets/images/anavader.png'),
                 Image.asset('assets/images/obiwan.png'),
               ],
               ),*/
-              Image.asset('assets/vadervsobiwan.jpg'),
-              if (_counter > 0)
-                Text(
-                  'The Light Side the Force wins by:',
-                  style: TextStyle(
-                    fontSize: 19,
+                  Image.asset('assets/vadervsobiwan.jpg'),
+                  if (_counter > 0)
+                    Text(
+                      'The Light Side the Force wins by:',
+                      style: TextStyle(
+                        fontSize: 19,
+                        color: Colors.white,
+                      ),
+                    )
+                  else if (_counter < 0)
+                    Text(
+                      'The Dark Side the Force wins by:',
+                      style: TextStyle(
+                        fontSize: 19,
+                        color: Colors.white,
+                      ),
+                    )
+                  else
+                    Text(
+                      'The Balance of the Force wins.',
+                      style: TextStyle(
+                        fontSize: 19,
+                        color: Colors.white,
+                      ),
+                    ),
+                  Text(
+                    '$_counter',
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 25,
+                    ),
                   ),
-                )
-              else if (_counter < 0)
-                Text(
-                  'The Dark Side the Force wins by:',
-                  style: TextStyle(
-                    fontSize: 19,
-                  ),
-                )
-              else
-                Text(
-                  'The Balance of the Force wins.',
-                  style: TextStyle(
-                    fontSize: 19,
-                  ),
-                ),
-              Text(
-                '$_counter',
-                style: TextStyle(
-                  color: color,
-                  fontSize: 25,
-                ),
-              ),
-              Container(height: 65.0),
-              Image.asset('assets/flaws.jpg'),
-            ],
-          ),
-        ),
-        AnimatedBuilder(
-            animation: _controllerH,
-            builder: (BuildContext context, Widget child) {
-              return Positioned(
-                  left: positionAnimation.value,
-                  top: 306.0,
-                  child: AnimatedOpacity(
-                      opacity: _heroOpacityLevel,
-                      duration: Duration(milliseconds: 100),
-                      child:
-                          Image.asset('assets/images/sprites/obi_base.png')));
-            }),
-        AnimatedBuilder(
-            animation: _controllerH,
-            builder: (BuildContext context, Widget child) {
-              return Positioned(
-                  left: positionAnimation2.value,
-                  top: 347.0,
-                  child: AnimatedOpacity(
-                    opacity: _heroOpacityLevel,
-                    duration: Duration(milliseconds: 100),
-                    child: Image.asset(
-                        'assets/images/sprites/ana_base2-removebg-preview.png'),
-                  ));
-            })
-      ]),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
-        child: Container(height: 50.0),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton:
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //crossAxisAlignment: CrossAxisAlignment.baseline,
-              children: <Widget>[
-            SlideTransition(
-              position: _offsetAnimation,
-              child: FloatingActionButton(
-                heroTag: "btn1",
-                backgroundColor: Colors.red,
-                onPressed: _decrementCounter,
-                tooltip: 'Sith Rage',
-                child: Icon(Icons.remove),
+                  Container(height: 65.0),
+                  Image.asset('assets/flaws.jpg'),
+                ],
               ),
             ),
-            FloatingActionButton(
-              onPressed: _hello,
-              backgroundColor: Colors.purple,
-              tooltip: 'HELLO THERE!',
-              child: Icon(Icons.music_note),
-            ),
-            SlideTransition(
-              position: _offsetAnimation,
-              child: FloatingActionButton(
-                heroTag: "btn2",
-                backgroundColor: Colors.blue,
-                onPressed: _incrementCounter,
-                tooltip: 'Jedi Balance',
-                child: Icon(Icons.add),
-              ),
-            ),
+            AnimatedBuilder(
+                animation: _controllerH,
+                builder: (BuildContext context, Widget child) {
+                  return Positioned(
+                      left: positionAnimation.value,
+                      top: 306.0,
+                      child: AnimatedOpacity(
+                          opacity: _heroOpacityLevel,
+                          duration: Duration(milliseconds: 100),
+                          child: Image.asset(
+                              'assets/images/sprites/obi_base.png')));
+                }),
+            AnimatedBuilder(
+                animation: _controllerH,
+                builder: (BuildContext context, Widget child) {
+                  return Positioned(
+                      left: positionAnimation2.value,
+                      top: 347.0,
+                      child: AnimatedOpacity(
+                        opacity: _heroOpacityLevel,
+                        duration: Duration(milliseconds: 100),
+                        child: Image.asset(
+                            'assets/images/sprites/ana_base2-removebg-preview.png'),
+                      ));
+                })
           ]),
-    );
+          bottomNavigationBar: BottomAppBar(
+            color: Colors.black,
+            child: Container(height: 50.0),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //crossAxisAlignment: CrossAxisAlignment.baseline,
+                  children: <Widget>[
+                SlideTransition(
+                  position: _offsetAnimation,
+                  child: FloatingActionButton(
+                    heroTag: "btn1",
+                    backgroundColor: Colors.red,
+                    onPressed: _decrementCounter,
+                    tooltip: 'Sith Rage',
+                    child: Icon(Icons.remove),
+                  ),
+                ),
+                FloatingActionButton(
+                  onPressed: _hello,
+                  backgroundColor: Colors.purple,
+                  tooltip: 'HELLO THERE!',
+                  child: Icon(Icons.music_note),
+                ),
+                SlideTransition(
+                  position: _offsetAnimation,
+                  child: FloatingActionButton(
+                    heroTag: "btn2",
+                    backgroundColor: Colors.blue,
+                    onPressed: _incrementCounter,
+                    tooltip: 'Jedi Balance',
+                    child: Icon(Icons.add),
+                  ),
+                ),
+              ]),
+        ));
   }
 }
