@@ -72,6 +72,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   String sprite3;
 
   String sprite0b;
+  String sprite1b;
   String sprite3b;
 
   double attackTime;
@@ -89,7 +90,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     setState(() {
       //player.play(audioPath2);
       int i;
-      //animation2ID = 1;
+      animation2ID = 1;
       animationID = 3;
 
       if (_position > -135.0)
@@ -109,7 +110,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     await Future.delayed(Duration(milliseconds: 1200));
 
     setState(() {
-      //animation2ID = 0;
+      animation2ID = 0;
       animationID = 0;
 
       overlayEntry2.remove();
@@ -383,6 +384,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     sprite3 = 'sprites/ana_guard-removebg-preview.png';
 
     sprite0b = 'sprites/obi_stand_1_-removebg-preview-removebg-preview.png';
+    sprite1b = 'sprites/obi_attack1final.png';
     sprite3b = 'sprites/obi_guard_right_height-removebg-preview.png';
 
     Flame.images.load(sprite0);
@@ -390,6 +392,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     Flame.images.load(sprite3);
 
     Flame.images.load(sprite0b);
+    Flame.images.load(sprite1b);
     Flame.images.load(sprite3b);
   }
 
@@ -504,6 +507,14 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     double filterPos;
 
     switch (_animationID) {
+      case 1:
+        sprite = sprite1b;
+        width = 190;
+        height = 127;
+        columns = 16;
+        stepTime = 0.1;
+        loop = true;
+        break;
       case 3:
         sprite = sprite3b;
         width = 64;
