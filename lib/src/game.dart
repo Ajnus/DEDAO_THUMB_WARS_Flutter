@@ -69,6 +69,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   String sprite0;
   String sprite1;
+  String sprite2;
   String sprite3;
 
   String sprite0b;
@@ -89,12 +90,10 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   void _incrementCounter() async {
     setState(() {
       //player.play(audioPath2);
-      int i;
-      animation2ID = 1;
+      int i, animation2ID = 1;
       animationID = 3;
 
-      if (_position > -135.0)
-      _position = _position - 15.0;
+      if (_position > -135.0) _position = _position - 15.0;
 
       overlayEntry2.remove();
       obiHeroOverlay(context, animation2ID);
@@ -130,13 +129,13 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   void _decrementCounter() async {
     setState(() {
-      int i;
-      animationID = 1;
+      int i, j;
+
+      j = new Random().nextInt(2);
+      animationID = j + 1;
       animation2ID = 3;
 
-      
-      if (_position < 135.0)
-      _position = _position + 15.0;
+      if (_position < 135.0) _position = _position + 15.0;
 
       overlayEntry.remove();
       anaHeroOverlay(context, animationID);
@@ -381,6 +380,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   loadSprites() {
     sprite0 = 'sprites/ana_standgreen-removebg-preview-final.png';
     sprite1 = 'sprites/ana_attack1_right_height-removebg-preview.png';
+    sprite2 = 'sprites/ana_attack2_right_height2-removebg-preview.png';
     sprite3 = 'sprites/ana_guard-removebg-preview.png';
 
     sprite0b = 'sprites/obi_stand_1_-removebg-preview-removebg-preview.png';
@@ -389,6 +389,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     Flame.images.load(sprite0);
     Flame.images.load(sprite1);
+    Flame.images.load(sprite2);
     Flame.images.load(sprite3);
 
     Flame.images.load(sprite0b);
@@ -414,6 +415,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         width = 131;
         height = 127;
         columns = 12;
+        stepTime = 0.1;
+        loop = false;
+        attackTime = columns * stepTime;
+        break;
+      case 2:
+        sprite = sprite2;
+        width = 123;
+        height = 167;
+        columns = 8;
         stepTime = 0.1;
         loop = false;
         attackTime = columns * stepTime;
