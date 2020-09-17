@@ -479,7 +479,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         break;
     }
 
-
     final _animationSpriteSheet = SpriteSheet(
       imageName: sprite,
       columns: columns,
@@ -488,26 +487,23 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       textureHeight: height,
     );
 
-    animation.Animation _animation = _animationSpriteSheet.createAnimation(
-      0,
-      stepTime: stepTime,
-      to: columns,
-      loop: loop
-    );
+    animation.Animation _animation = _animationSpriteSheet.createAnimation(0,
+        stepTime: stepTime, to: columns, loop: loop);
 
-    
+    double filterPos =
+        MediaQuery.of(context).size.width - 128.0 - width + _position;
+    if (filterPos > MediaQuery.of(context).size.width - width) filterPos = MediaQuery.of(context).size.width - width;
 
     overlayEntry2 = OverlayEntry(
         builder: (context) => Positioned(
             bottom: 360.0,
-            left: MediaQuery.of(context).size.width - 128.0 - width + _position,
+            left: filterPos,
             child: Container(
                 width: width.toDouble(),
                 height: height.toDouble(),
                 child: AnimationWidget(animation: _animation))));
 
     overlayState2.insert(overlayEntry2);
-
   }
 
   /*anaAttack1(BuildContext context) async {
