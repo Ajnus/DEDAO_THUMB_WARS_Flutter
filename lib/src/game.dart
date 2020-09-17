@@ -69,6 +69,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   String sprite0;
   String sprite1;
+  String sprite3;
 
   String sprite0b;
   String sprite3b;
@@ -88,14 +89,16 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     setState(() {
       //player.play(audioPath2);
       int i;
-      //animation2ID = 3;
-      //animationID = 1;
+      //animation2ID = 1;
+      animationID = 3;
+
+      _position = _position - 15.0;
+      if (_position < -135.0) _position = -135.0;
 
       overlayEntry2.remove();
       obiHeroOverlay(context, animation2ID);
       overlayEntry.remove();
       anaHeroOverlay(context, animationID);
-      _position = _position - 15.0;
 
       i = new Random().nextInt(11);
       player.play('$i.mp3');
@@ -107,7 +110,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     setState(() {
       //animation2ID = 0;
-      //animationID = 0;
+      animationID = 0;
 
       overlayEntry2.remove();
       obiHeroOverlay(context, animation2ID);
@@ -130,11 +133,13 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       animationID = 1;
       animation2ID = 3;
 
+      _position = _position + 15.0;
+      if (_position > 135.0) _position = 135.0;
+
       overlayEntry.remove();
       anaHeroOverlay(context, animationID);
       overlayEntry2.remove();
       obiHeroOverlay(context, animation2ID);
-      _position = _position + 15.0;
 
       i = new Random().nextInt(11);
       player.play('$i.mp3');
@@ -374,12 +379,14 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   loadSprites() {
     sprite0 = 'sprites/ana_standgreen-removebg-preview-final.png';
     sprite1 = 'sprites/ana_attack1_right_height-removebg-preview.png';
+    sprite3 = 'sprites/ana_guard-removebg-preview.png';
 
     sprite0b = 'sprites/obi_stand_1_-removebg-preview-removebg-preview.png';
     sprite3b = 'sprites/obi_guard_right_height-removebg-preview.png';
 
     Flame.images.load(sprite0);
     Flame.images.load(sprite1);
+    Flame.images.load(sprite3);
 
     Flame.images.load(sprite0b);
     Flame.images.load(sprite3b);
@@ -394,8 +401,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     bool loop = true;
     //bool _init = init;
     String sprite;
-
     int _animationID = animationID;
+    double filterPos;
 
     switch (_animationID) {
       case 1:
@@ -406,6 +413,14 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         stepTime = 0.1;
         loop = false;
         attackTime = columns * stepTime;
+        break;
+      case 3:
+        sprite = sprite3;
+        width = 64;
+        height = 127;
+        columns = 1;
+        stepTime = 1.2;
+        loop = false;
         break;
       case 0:
         sprite = sprite0;
@@ -445,8 +460,12 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       
     }*/
 
-    double filterPos = 128.0 + _position;
-    if (filterPos < 0.0) filterPos = 0.0;
+    filterPos = 128.0 + _position;
+
+    if (filterPos < 0.0)
+      filterPos = 0.0;
+    else if (filterPos > MediaQuery.of(context).size.width - 123.0 - 33.0)
+      filterPos = MediaQuery.of(context).size.width - 123.0 - 33.0;
 
     overlayEntry = OverlayEntry(
         builder: (context) => Positioned(
@@ -480,8 +499,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     double stepTime;
     bool loop = true;
     String sprite;
-
     int _animationID = animation2ID;
+    double filterPos;
 
     switch (_animationID) {
       case 3:
@@ -513,10 +532,10 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     animation.Animation _animation = _animationSpriteSheet.createAnimation(0,
         stepTime: stepTime, to: columns, loop: loop);
 
-    double filterPos =
-        MediaQuery.of(context).size.width - 128.0 - width + _position;
+    filterPos = MediaQuery.of(context).size.width - 128.0 - width + _position;
     if (filterPos > MediaQuery.of(context).size.width - width)
       filterPos = MediaQuery.of(context).size.width - width;
+    else if (filterPos < 33.0) filterPos = 33.0;
 
     overlayEntry2 = OverlayEntry(
         builder: (context) => Positioned(
