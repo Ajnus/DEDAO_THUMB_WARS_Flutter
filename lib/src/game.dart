@@ -92,8 +92,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       //animation2ID = 1;
       animationID = 3;
 
+      if (_position > -135.0)
       _position = _position - 15.0;
-      if (_position < -135.0) _position = -135.0;
 
       overlayEntry2.remove();
       obiHeroOverlay(context, animation2ID);
@@ -133,8 +133,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       animationID = 1;
       animation2ID = 3;
 
+      
+      if (_position < 135.0)
       _position = _position + 15.0;
-      if (_position > 135.0) _position = 135.0;
 
       overlayEntry.remove();
       anaHeroOverlay(context, animationID);
