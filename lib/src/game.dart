@@ -82,18 +82,35 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   //Sprite player = Sprite('player.png');
 
-  void _incrementCounter() {
+  void _incrementCounter() async{
     setState(() {
       //player.play(audioPath2);
       int i;
+      //animation2ID = 3;
+      //animationID = 1;
+
+      overlayEntry2.remove();
+      obiHeroOverlay(context, animation2ID);
+      overlayEntry.remove();
+      anaHeroOverlay(context, animationID);
+      _position = _position - 15.0;
+
       i = new Random().nextInt(11);
       player.play('$i.mp3');
 
-      _position = _position - 10.0;
-
-      obiHeroOverlay(context, animation2ID);
-
       _counter++;
+    });
+
+    await Future.delayed(Duration(milliseconds: 1200));
+
+    setState(() {
+      //animation2ID = 0;
+      //animationID = 0;
+
+      overlayEntry2.remove();
+      obiHeroOverlay(context, animation2ID);
+      overlayEntry.remove();
+      anaHeroOverlay(context, animationID);
     });
   }
 
@@ -115,7 +132,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       anaHeroOverlay(context, animationID);
       overlayEntry2.remove();
       obiHeroOverlay(context, animation2ID);
-      _position = _position + 10.0;
+      _position = _position + 15.0;
 
       i = new Random().nextInt(11);
       player.play('$i.mp3');
