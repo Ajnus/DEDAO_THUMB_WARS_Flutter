@@ -73,6 +73,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   String sprite0b;
   String sprite3b;
 
+  double attackTime;
+
   //Sprite _sprite;
   //animation.Animation _animation;
 
@@ -82,7 +84,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   //Sprite player = Sprite('player.png');
 
-  void _incrementCounter() async{
+  void _incrementCounter() async {
     setState(() {
       //player.play(audioPath2);
       int i;
@@ -403,6 +405,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         columns = 12;
         stepTime = 0.1;
         loop = false;
+        attackTime = columns * stepTime;
         break;
       case 0:
         sprite = sprite0;
@@ -486,7 +489,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         width = 64;
         height = 127;
         columns = 1;
-        stepTime = 1.2;
+        stepTime = attackTime;
         loop = false;
         break;
       case 0:
