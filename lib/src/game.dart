@@ -425,10 +425,13 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       
     }*/
 
+    double filterPos = 128.0 + _position;
+    if (filterPos < 0.0) filterPos = 0.0;
+
     overlayEntry = OverlayEntry(
         builder: (context) => Positioned(
             bottom: 360.0,
-            left: 128.0 + _position,
+            left: filterPos,
             child: Container(
                 width: width.toDouble(),
                 height: height.toDouble(),
@@ -492,7 +495,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     double filterPos =
         MediaQuery.of(context).size.width - 128.0 - width + _position;
-    if (filterPos > MediaQuery.of(context).size.width - width) filterPos = MediaQuery.of(context).size.width - width;
+    if (filterPos > MediaQuery.of(context).size.width - width)
+      filterPos = MediaQuery.of(context).size.width - width;
 
     overlayEntry2 = OverlayEntry(
         builder: (context) => Positioned(
