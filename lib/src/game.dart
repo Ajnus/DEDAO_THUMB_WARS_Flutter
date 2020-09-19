@@ -109,7 +109,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       _counter++;
     });
 
-    await Future.delayed(Duration(milliseconds: 1200));
+    await Future.delayed(Duration(milliseconds: (attackTime*1000).toInt()));
 
     setState(() {
       animation2ID = 0;
@@ -151,7 +151,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       _counter--;
     });
 
-    await Future.delayed(Duration(milliseconds: 1200));
+    await Future.delayed(Duration(milliseconds: (attackTime*1000).toInt()));
 
     setState(() {
       animationID = 0;
@@ -494,7 +494,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         width = 64;
         height = 127;
         columns = 1;
-        stepTime = 1.2;
+        stepTime = attackTime;
         loop = false;
         break;
       case 0:
@@ -504,6 +504,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         columns = 5;
         stepTime = 0.2;
         loop = true;
+        attackTime = columns * stepTime;
         break;
     }
 
@@ -584,7 +585,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         height = 127;
         columns = 16;
         stepTime = 0.1;
-        loop = true;
+        loop = false;
+        attackTime = columns * stepTime;
         break;
       case 3:
         sprite = sprite3b;
@@ -593,6 +595,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         columns = 1;
         stepTime = attackTime;
         loop = false;
+        
         break;
       case 0:
         sprite = sprite0b;
@@ -601,6 +604,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         columns = 5;
         stepTime = 0.2;
         loop = true;
+        attackTime = columns * stepTime;
         break;
     }
 
