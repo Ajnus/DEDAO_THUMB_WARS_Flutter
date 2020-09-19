@@ -121,19 +121,20 @@ class MainPage extends StatelessWidget {
                     height: 36,
                     width: 90,
                     decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
+                        color: Colors.grey,
                         borderRadius: const BorderRadius.all(
                           Radius.circular(35),
                         ),
-                        boxShadow: [
+                        /*boxShadow: [
                           BoxShadow(
                               color: Colors.blue,
                               blurRadius: 2.0,
                               spreadRadius: 2.5),
-                        ]),
+                        ]*/),
                     child: const Text(
                       'New Profile',
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                      style: TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+                      
                     ),
                   ),
                   //onTap: _optionsDialogBox(),
@@ -154,7 +155,7 @@ class MainPage extends StatelessWidget {
                               blurRadius: 2.0,
                               spreadRadius: 2.5),
                         ]),
-                    child: const Text(
+                    child: /*RaisedButton(onPressed: null) const */Text(
                       'Play',
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),

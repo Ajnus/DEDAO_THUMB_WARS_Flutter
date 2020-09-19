@@ -46,15 +46,18 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       "John Williams - Battle of the Heroes (Official Audio).mp3";
 
   AnimationController _controller;
+  AnimationController _controller2;
+  AnimationController _controller3;
   AnimationController _controllerH;
   //AnimationController _controllerH2;
   Animation<Offset> _offsetAnimation;
+  Animation<Offset> _offsetAnimation2;
+  Animation<Offset> postionGuitarAnimation;
+  Animation<Offset> postionGuitarAnimation2;
 
   Animation<double> positionAnimation;
   Animation<double> positionAnimation2;
 
-  Curve _curve;
-  Offset _offset;
   Color color = Colors.grey;
   double _opacityLevel = 1.0;
   double _heroOpacityLevel = 1.0;
@@ -187,9 +190,20 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     loadSprites();
+    
 
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _controller2 = AnimationController(
+      duration: Duration(milliseconds: 1500),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _controller3 = AnimationController(
+      duration: Duration(seconds: 3),
       vsync: this,
     )..repeat(reverse: true);
 
@@ -198,18 +212,11 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       vsync: this,
     )..forward();
 
-    /*_controllerH2 = AnimationController(
-      duration: Duration(seconds: 10),
-      vsync: this,
-    )..forward();*/
-
-    _curve = Curves.easeInOut;
-    _offset = const Offset(0.0, -1.5);
-
     _offsetAnimation = Tween<Offset>(
       begin: Offset.zero,
-      end: _offset,
-    ).animate(CurvedAnimation(parent: _controller, curve: _curve));
+      end: Offset(0.0, -1.5),
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    _offsetAnimation2 =_offsetAnimation;
 
     final alignSec = TweenSequence<double>([
       TweenSequenceItem<double>(
@@ -229,10 +236,43 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
           tween: Tween<double>(begin: 0.0, end: 98.0), weight: 2.0)
     ]);
 
+    final guitarHeroing = TweenSequence<Offset>([
+      TweenSequenceItem<Offset>(
+          tween: Tween<Offset>(begin: Offset.zero, end: Offset(1.5, -1.0)), weight: 2.0),
+      TweenSequenceItem<Offset>(
+          tween: Tween<Offset>(begin:Offset(1.5, -1.0), end: Offset(0.0, -2.0)), weight: 2.0),
+      TweenSequenceItem<Offset>(
+          tween: Tween<Offset>(begin: Offset(0.0, -2.0), end: Offset(1.5, -3.0)), weight: 2.0),
+      TweenSequenceItem<Offset>(
+          tween: Tween<Offset>(begin:  Offset(1.5, -3.0), end: Offset(0.0, -4.0)), weight: 2.0),
+      TweenSequenceItem<Offset>(
+          tween: Tween<Offset>(begin: Offset(0.0, -4.0), end: Offset(1.5, -5.0)), weight: 2.0)
+    ]);
+
+    final guitarHeroing2 = TweenSequence<Offset>([
+      TweenSequenceItem<Offset>(
+          tween: Tween<Offset>(begin: Offset.zero, end: Offset(-1.5, -1.0)), weight: 2.0),
+      TweenSequenceItem<Offset>(
+          tween: Tween<Offset>(begin:Offset(-1.5, -1.0), end: Offset(0.0, -2.0)), weight: 2.0),
+      TweenSequenceItem<Offset>(
+          tween: Tween<Offset>(begin: Offset(0.0, -2.0), end: Offset(-1.5, -3.0)), weight: 2.0),
+      TweenSequenceItem<Offset>(
+          tween: Tween<Offset>(begin:  Offset(-1.5, -3.0), end: Offset(0.0, -4.0)), weight: 2.0),
+      TweenSequenceItem<Offset>(
+          tween: Tween<Offset>(begin: Offset(0.0, -4.0), end: Offset(-1.5, -5.0)), weight: 2.0)
+    ]);
+
+
     positionAnimation = alignSec
         .animate(CurvedAnimation(parent: _controllerH, curve: Curves.linear));
     positionAnimation2 = alignSec2
         .animate(CurvedAnimation(parent: _controllerH, curve: Curves.linear));
+
+    postionGuitarAnimation = guitarHeroing.animate(
+            CurvedAnimation(parent: _controller3, curve: Curves.linear));
+    
+    postionGuitarAnimation2 = guitarHeroing2.animate(
+            CurvedAnimation(parent: _controller3, curve: Curves.linear));
 
     Future.delayed(Duration(milliseconds: 9275), () {
       player2.play('speed.mp3');
@@ -251,7 +291,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
       anaHeroOverlay(context, animationID);
       obiHeroOverlay(context, animation2ID);
-      _curve = Curves.easeOutQuart;
+
       //});
     });
 
@@ -261,13 +301,30 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     Future.delayed(Duration(milliseconds: 62950), () {
       showOverlay3(context);
-      _changeOpacity('overlay');
+      setState(() {
+        _changeOpacity('overlay');
+        _offsetAnimation = Tween<Offset>(
+          begin: Offset.zero,
+          end: Offset(0.0, -5.0),
+        ).animate(
+            CurvedAnimation(parent: _controller2, curve: Curves.easeInOut));
+        _offsetAnimation2 = _offsetAnimation;
+      });
+      
       //Future.delayed(Duration(milliseconds: 47050), () { // ->
     });
 
     //});
     Future.delayed(Duration(seconds: 30), () {
       showOverlay(context);
+      setState(() {
+        _offsetAnimation = Tween<Offset>(
+          begin: Offset.zero,
+          end: Offset(0.0, -3.0),
+        ).animate(
+            CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+        _offsetAnimation2 = _offsetAnimation;
+      });
     });
     Future.delayed(Duration(seconds: 40 + 5), () {
       showOverlay2(context);
@@ -275,6 +332,10 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     Future.delayed(Duration(seconds: 70), () {
       showOverlay4(context);
+      setState(() {
+        _offsetAnimation = postionGuitarAnimation;
+        _offsetAnimation2 =  postionGuitarAnimation2;
+      });
       //_changeOpacity();
     });
     /*Future.delayed(
@@ -736,7 +797,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                   child: Icon(Icons.music_note),
                 ),
                 SlideTransition(
-                  position: _offsetAnimation,
+                  position: _offsetAnimation2,
                   child: FloatingActionButton(
                     heroTag: "btn2",
                     backgroundColor: Colors.blue,

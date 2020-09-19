@@ -98,10 +98,10 @@ class _ChoosePageState extends State<ChoosePage> {
         bottomNavigationBar: BottomAppBar(
           color: Colors.black,
           child: Container(
-            height: 32.0,
+            height: 102.0,
             //padding: new EdgeInsets.only(top: 16.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: new Column(
+              //crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text('Hold for Bio',
@@ -110,15 +110,35 @@ class _ChoosePageState extends State<ChoosePage> {
                       fontFamily: 'StarJedi',
                       color: new Color(0xFF26C6DA),
                     )),
-                RaisedButton(
-                  color: Colors.black,
-                  child: Text('Do iT',
-                      style: new TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'StarJedi',
-                        color: Colors.red, //new Color(0xFF26C6DA),
-                      )),
-                  onPressed: appState.playGame,
+                Container(
+                  height: 36,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  height: 36,
+                  width: 90,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(35),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.blue,
+                            blurRadius: 2.0,
+                            spreadRadius: 2.5),
+                      ]),
+                  child: RaisedButton(
+                    color: Colors.black,
+                    autofocus: true,
+                    child: Text('Do iT',
+                        style: new TextStyle(
+                          fontSize: 15.0,
+                          fontFamily: 'StarJedi',
+                          color: Colors.red, //new Color(0xFF26C6DA),
+                        )),
+                    onPressed: appState.playGame,
+                  ),
                 ),
               ],
             ),
