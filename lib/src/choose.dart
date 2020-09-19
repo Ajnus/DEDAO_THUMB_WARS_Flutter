@@ -130,6 +130,7 @@ class _ChoosePageState extends State<ChoosePage> {
                       ]),
                   child: RaisedButton(
                     color: Colors.black,
+                    //highlightColor: Colors.grey,
                     autofocus: true,
                     child: Text('Do iT',
                         style: new TextStyle(

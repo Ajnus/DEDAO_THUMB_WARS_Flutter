@@ -62,20 +62,20 @@ class _CrawlerState extends State<Crawler> {
   void initState() {
     SystemChrome.setEnabledSystemUIOverlays([]);
     Future.delayed(
-        const Duration(milliseconds: 500),
+        const Duration(milliseconds: 400),
         () => _scrollController.animateTo(
             _scrollController.position.maxScrollExtent,
             duration: widget.crawlDuration,
             curve: Curves.linear));
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration(seconds: 40), () {
       dispose();
       Navigator.pop(context);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LandingPage()));
     });
-    /*Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 3), () {
       background.play(intromusic);
-    });*/
+    });
 
     super.initState();
   }
@@ -86,6 +86,7 @@ class _CrawlerState extends State<Crawler> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: Color.fromARGB(0, 255, 255, 255),
         body: GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, '/choose');
