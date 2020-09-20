@@ -77,6 +77,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   String sprite0b;
   String sprite1b;
+  String sprite2b;
   String sprite3b;
 
   double attackTime;
@@ -93,7 +94,11 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   void _incrementCounter() async {
     setState(() {
       //player.play(audioPath2);
-      int i, animation2ID = 1;
+
+      int i, j;
+
+      j = new Random().nextInt(2);
+      animation2ID = j + 1;
       animationID = 3;
 
       if (_position > -135.0) _position = _position - 15.0;
@@ -109,7 +114,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       _counter++;
     });
 
-    await Future.delayed(Duration(milliseconds: (attackTime*1000).toInt()));
+    await Future.delayed(Duration(milliseconds: (attackTime * 1000).toInt()));
 
     setState(() {
       animation2ID = 0;
@@ -151,7 +156,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       _counter--;
     });
 
-    await Future.delayed(Duration(milliseconds: (attackTime*1000).toInt()));
+    await Future.delayed(Duration(milliseconds: (attackTime * 1000).toInt()));
 
     setState(() {
       animationID = 0;
@@ -190,7 +195,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     loadSprites();
-    
 
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
@@ -216,7 +220,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       begin: Offset.zero,
       end: Offset(0.0, -1.5),
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
-    _offsetAnimation2 =_offsetAnimation;
+    _offsetAnimation2 = _offsetAnimation;
 
     final alignSec = TweenSequence<double>([
       TweenSequenceItem<double>(
@@ -238,41 +242,58 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     final guitarHeroing = TweenSequence<Offset>([
       TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(begin: Offset.zero, end: Offset(1.5, -1.0)), weight: 2.0),
+          tween: Tween<Offset>(begin: Offset.zero, end: Offset(1.5, -1.0)),
+          weight: 2.0),
       TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(begin:Offset(1.5, -1.0), end: Offset(0.0, -2.0)), weight: 2.0),
+          tween:
+              Tween<Offset>(begin: Offset(1.5, -1.0), end: Offset(0.0, -2.0)),
+          weight: 2.0),
       TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(begin: Offset(0.0, -2.0), end: Offset(1.5, -3.0)), weight: 2.0),
+          tween:
+              Tween<Offset>(begin: Offset(0.0, -2.0), end: Offset(1.5, -3.0)),
+          weight: 2.0),
       TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(begin:  Offset(1.5, -3.0), end: Offset(0.0, -4.0)), weight: 2.0),
+          tween:
+              Tween<Offset>(begin: Offset(1.5, -3.0), end: Offset(0.0, -4.0)),
+          weight: 2.0),
       TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(begin: Offset(0.0, -4.0), end: Offset(1.5, -5.0)), weight: 2.0)
+          tween:
+              Tween<Offset>(begin: Offset(0.0, -4.0), end: Offset(1.5, -5.0)),
+          weight: 2.0)
     ]);
 
     final guitarHeroing2 = TweenSequence<Offset>([
       TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(begin: Offset.zero, end: Offset(-1.5, -1.0)), weight: 2.0),
+          tween: Tween<Offset>(begin: Offset.zero, end: Offset(-1.5, -1.0)),
+          weight: 2.0),
       TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(begin:Offset(-1.5, -1.0), end: Offset(0.0, -2.0)), weight: 2.0),
+          tween:
+              Tween<Offset>(begin: Offset(-1.5, -1.0), end: Offset(0.0, -2.0)),
+          weight: 2.0),
       TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(begin: Offset(0.0, -2.0), end: Offset(-1.5, -3.0)), weight: 2.0),
+          tween:
+              Tween<Offset>(begin: Offset(0.0, -2.0), end: Offset(-1.5, -3.0)),
+          weight: 2.0),
       TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(begin:  Offset(-1.5, -3.0), end: Offset(0.0, -4.0)), weight: 2.0),
+          tween:
+              Tween<Offset>(begin: Offset(-1.5, -3.0), end: Offset(0.0, -4.0)),
+          weight: 2.0),
       TweenSequenceItem<Offset>(
-          tween: Tween<Offset>(begin: Offset(0.0, -4.0), end: Offset(-1.5, -5.0)), weight: 2.0)
+          tween:
+              Tween<Offset>(begin: Offset(0.0, -4.0), end: Offset(-1.5, -5.0)),
+          weight: 2.0)
     ]);
-
 
     positionAnimation = alignSec
         .animate(CurvedAnimation(parent: _controllerH, curve: Curves.linear));
     positionAnimation2 = alignSec2
         .animate(CurvedAnimation(parent: _controllerH, curve: Curves.linear));
 
-    postionGuitarAnimation = guitarHeroing.animate(
-            CurvedAnimation(parent: _controller3, curve: Curves.linear));
-    
-    postionGuitarAnimation2 = guitarHeroing2.animate(
-            CurvedAnimation(parent: _controller3, curve: Curves.linear));
+    postionGuitarAnimation = guitarHeroing
+        .animate(CurvedAnimation(parent: _controller3, curve: Curves.linear));
+
+    postionGuitarAnimation2 = guitarHeroing2
+        .animate(CurvedAnimation(parent: _controller3, curve: Curves.linear));
 
     Future.delayed(Duration(milliseconds: 9275), () {
       player2.play('speed.mp3');
@@ -300,9 +321,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     });
 
     Future.delayed(Duration(milliseconds: 62950), () {
-      showOverlay3(context);
+      //showOverlay3(context);
       setState(() {
-        _changeOpacity('overlay');
+        //_changeOpacity('overlay');
         _offsetAnimation = Tween<Offset>(
           begin: Offset.zero,
           end: Offset(0.0, -5.0),
@@ -310,13 +331,13 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
             CurvedAnimation(parent: _controller2, curve: Curves.easeInOut));
         _offsetAnimation2 = _offsetAnimation;
       });
-      
+
       //Future.delayed(Duration(milliseconds: 47050), () { // ->
     });
 
     //});
     Future.delayed(Duration(seconds: 30), () {
-      showOverlay(context);
+      //showOverlay(context);
       setState(() {
         _offsetAnimation = Tween<Offset>(
           begin: Offset.zero,
@@ -327,15 +348,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       });
     });
     Future.delayed(Duration(seconds: 40 + 5), () {
-      showOverlay2(context);
+      //showOverlay2(context);
     });
 
     Future.delayed(Duration(seconds: 70), () {
-      showOverlay4(context);
-      setState(() {
+      //showOverlay4(context);
+      /*setState(() {
         _offsetAnimation = postionGuitarAnimation;
-        _offsetAnimation2 =  postionGuitarAnimation2;
-      });
+        _offsetAnimation2 = postionGuitarAnimation2;
+      });*/
       //_changeOpacity();
     });
     /*Future.delayed(
@@ -446,6 +467,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     sprite0b = 'sprites/obi_stand_1_-removebg-preview-removebg-preview.png';
     sprite1b = 'sprites/obi_attack1final.png';
+    sprite2b = 'sprites/obi_attack2rightHeightA-removebg-preview final.png';
     sprite3b = 'sprites/obi_guard_right_height-removebg-preview.png';
 
     Flame.images.load(sprite0);
@@ -455,6 +477,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     Flame.images.load(sprite0b);
     Flame.images.load(sprite1b);
+    Flame.images.load(sprite2b);
     Flame.images.load(sprite3b);
   }
 
@@ -588,6 +611,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         loop = false;
         attackTime = columns * stepTime;
         break;
+      case 2:
+        sprite = sprite2b;
+        width = 144;
+        height = 130;
+        columns = 19;
+        stepTime = 0.1;
+        loop = false;
+        attackTime = columns * stepTime;
+        break;
       case 3:
         sprite = sprite3b;
         width = 64;
@@ -595,7 +627,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         columns = 1;
         stepTime = attackTime;
         loop = false;
-        
+
         break;
       case 0:
         sprite = sprite0b;

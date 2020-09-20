@@ -67,7 +67,7 @@ class _CrawlerState extends State<Crawler> {
             _scrollController.position.maxScrollExtent,
             duration: widget.crawlDuration,
             curve: Curves.linear));
-    Future.delayed(Duration(seconds: 40), () {
+    Future.delayed(Duration(seconds: 1), () {
       dispose();
       Navigator.pop(context);
       Navigator.push(
