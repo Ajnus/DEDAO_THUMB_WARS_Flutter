@@ -101,7 +101,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
       int i, j;
 
-      j = new Random().nextInt(2);
+      j = new Random().nextInt(3);
       animation2ID = j + 1;
       if (animation2ID == 2) {
         animationID = 9;
@@ -480,6 +480,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     sprite0b = 'sprites/obi_stand_1_-removebg-preview-removebg-preview.png';
     sprite1b = 'sprites/obi_attack1final.png';
     sprite2b = 'sprites/obi_attack2rightHeightA-removebg-preview final.png';
+    sprite3b = 'sprites/obi_attack3rightHeight-removebg-preview.png';
     sprite8b = 'sprites/obi_guard_right_height-removebg-preview.png';
     sprite9b = 'sprites/obi_guard2rightHeight-removebg-preview.png';
 
@@ -650,6 +651,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         height = 130;
         columns = 19;
         stepTime = 0.1;
+        loop = false;
+        attackTime = columns * stepTime;
+        break;
+      case 3:
+        sprite = sprite3b;
+        width = 131;
+        height = 127;
+        columns = 10;
+        stepTime = 0.12;
         loop = false;
         attackTime = columns * stepTime;
         break;
