@@ -74,12 +74,14 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   String sprite1;
   String sprite2;
   String sprite3;
+  String sprite8;
   String sprite9;
 
   String sprite0b;
   String sprite1b;
   String sprite2b;
   String sprite3b;
+  String sprite8b;
   String sprite9b;
 
   double attackTime;
@@ -104,7 +106,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       if (animation2ID == 2) {
         animationID = 9;
       } else
-        animationID = 3;
+        animationID = 8;
 
       if (_position > -135.0) _position = _position - 15.0;
 
@@ -144,12 +146,12 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     setState(() {
       int i, j;
 
-      j = new Random().nextInt(2);
+      j = new Random().nextInt(3);
       animationID = j + 1;
       if (animationID == 2) {
         animation2ID = 9;
       } else
-        animation2ID = 3;
+        animation2ID = 8;
 
       if (_position < 135.0) _position = _position + 15.0;
 
@@ -471,25 +473,28 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     sprite0 = 'sprites/ana_standgreen-removebg-preview-final.png';
     sprite1 = 'sprites/ana_attack1_right_height-removebg-preview.png';
     sprite2 = 'sprites/ana_attack2_right_height2-removebg-preview.png';
-    sprite3 = 'sprites/ana_guard-removebg-preview.png';
+    sprite3 = 'sprites/ana_attack3rightHeight-removebg-preview.png';
+    sprite8 = 'sprites/ana_guard-removebg-preview.png';
     sprite9 = 'sprites/ana_guard2rightHeight-removebg-preview2.png';
 
     sprite0b = 'sprites/obi_stand_1_-removebg-preview-removebg-preview.png';
     sprite1b = 'sprites/obi_attack1final.png';
     sprite2b = 'sprites/obi_attack2rightHeightA-removebg-preview final.png';
-    sprite3b = 'sprites/obi_guard_right_height-removebg-preview.png';
+    sprite8b = 'sprites/obi_guard_right_height-removebg-preview.png';
     sprite9b = 'sprites/obi_guard2rightHeight-removebg-preview.png';
 
     Flame.images.load(sprite0);
     Flame.images.load(sprite1);
     Flame.images.load(sprite2);
     Flame.images.load(sprite3);
+    Flame.images.load(sprite8);
     Flame.images.load(sprite9);
 
     Flame.images.load(sprite0b);
     Flame.images.load(sprite1b);
     Flame.images.load(sprite2b);
-    Flame.images.load(sprite3b);
+    Flame.images.load(sprite8b);
+    Flame.images.load(sprite9b);
   }
 
   anaHeroOverlay(BuildContext context, int animationID) async {
@@ -525,6 +530,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         break;
       case 3:
         sprite = sprite3;
+        width = 125;
+        height = 127;
+        columns = 12;
+        stepTime = 0.11;
+        loop = false;
+        attackTime = columns * stepTime;
+        break;
+      case 8:
+        sprite = sprite8;
         width = 64;
         height = 127;
         columns = 1;
@@ -639,8 +653,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         loop = false;
         attackTime = columns * stepTime;
         break;
-      case 3:
-        sprite = sprite3b;
+      case 8:
+        sprite = sprite8b;
         width = 64;
         height = 127;
         columns = 1;
