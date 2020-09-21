@@ -39,6 +39,7 @@ dependencies:
   video_player_platform_interface: ^2.1.1
   flame: ^0.26.0
   flutter_sequence_animation: ^3.0.1
+  spritewidget: ^0.9.24
   
 
 

@@ -17,6 +17,8 @@ import 'package:flame/flame.dart'; // imports the Flame helper class
 import 'package:flame/position.dart'; // imports the Position class
 //import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 import 'ending.dart';
+/*import 'package:spritewidget/spritewidget.dart';
+import 'dart:ui' as ui show Image;*/
 
 class GamePage extends StatefulWidget {
   //GamePage({Key key, this.title}) : super(key: key);
@@ -50,13 +52,18 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   AnimationController _controller3;
   AnimationController _controllerH;
   //AnimationController _controllerH2;
+  AnimationController _controllerJ;
+
   Animation<Offset> _offsetAnimation;
   Animation<Offset> _offsetAnimation2;
   Animation<Offset> postionGuitarAnimation;
   Animation<Offset> postionGuitarAnimation2;
+  Animation<Offset> _offsetAnimationJ;
 
   Animation<double> positionAnimation;
   Animation<double> positionAnimation2;
+  //Animation<double> _jumpAnimation;
+  //Animation<double> _jumpAnimation2;
 
   Color color = Colors.grey;
   double _opacityLevel = 1.0;
@@ -74,6 +81,17 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   String sprite1;
   String sprite2;
   String sprite3;
+  // improviso
+  String sprite4A;
+  String sprite4B;
+  String sprite4C;
+  String sprite4D;
+  String sprite4E;
+  String sprite4F;
+  String sprite4G;
+  String sprite4H;
+  String sprite4I;
+
   String sprite8;
   String sprite9;
 
@@ -86,7 +104,11 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   double attackTime;
 
-  //Sprite _sprite;
+  Sprite _sprite;
+
+  bool pulou = false;
+
+  //NodeWithSize rootNode;
   //animation.Animation _animation;
 
   //var WIDTH = 249.0;
@@ -142,19 +164,50 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     });
   }
 
+  jump() async {
+    for (animationID = 40; animationID < 49; animationID++) {
+      overlayEntry.remove();
+      anaHeroOverlay(context, animationID);
+      _position = _position - 10.0;
+      await Future.delayed(Duration(milliseconds: 100));
+    }
+    overlayEntry.remove();
+    anaHeroOverlay(context, 0);
+  }
+
   void _decrementCounter() async {
     setState(() {
       int i, j;
 
-      j = new Random().nextInt(3);
-      animationID = j + 1;
+      j = new Random().nextInt(4);
+      animationID = 40;
       if (animationID == 2) {
         animation2ID = 9;
+      } else if (animationID == 40) {
+        //for (int i = 0; i < 9; i++) {
+        /*_offsetAnimationJ = Tween<Offset>(
+          begin: Offset.zero,
+          end: Offset(-1.0, 0.0),
+        ).animate(
+            CurvedAnimation(parent: _controllerJ, curve: Curves.easeInOut));*/
+        //_position = _position - 10.0;
+        /*overlayEntry.remove();
+          anaHeroOverlay(context, animationID);
+          await Future.delayed(Duration(milliseconds: 100));*/
+        /*showPointOverlay(context, 350.0, 0.0);
+        pulou = true;*/
+
+        jump();
+
+        
+        //overlayEntry.remove();
+        //anaHeroOverlay(context, animationID);
       } else
         animation2ID = 8;
 
-      if (_position < 135.0) _position = _position + 15.0;
+      if (_position < 135.0 && animationID < 40) _position = _position + 15.0;
 
+      //animationID = 0;
       overlayEntry.remove();
       anaHeroOverlay(context, animationID);
       overlayEntry2.remove();
@@ -171,6 +224,10 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     setState(() {
       animationID = 0;
       animation2ID = 0;
+      //pulou = false;
+
+      /*_jumpAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(0.0, 0.0))
+        .animate(CurvedAnimation(parent: _controllerJ, curve: Curves.linear));*/
 
       overlayEntry.remove();
       anaHeroOverlay(context, animationID);
@@ -206,6 +263,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     super.initState();
     loadSprites();
 
+    //rootNode = new NodeWithSize(const Size(42.0, 127.0));
+
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
@@ -226,11 +285,21 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       vsync: this,
     )..forward();
 
+    _controllerJ = AnimationController(
+      duration: Duration(seconds: 3),
+      vsync: this,
+    )..forward();
+
     _offsetAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: Offset(0.0, -1.5),
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
     _offsetAnimation2 = _offsetAnimation;
+
+    _offsetAnimationJ = Tween<Offset>(
+      begin: Offset.zero,
+      end: Offset(0.0, 0.0),
+    ).animate(CurvedAnimation(parent: _controllerJ, curve: Curves.easeInOut));
 
     final alignSec = TweenSequence<double>([
       TweenSequenceItem<double>(
@@ -298,6 +367,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         .animate(CurvedAnimation(parent: _controllerH, curve: Curves.linear));
     positionAnimation2 = alignSec2
         .animate(CurvedAnimation(parent: _controllerH, curve: Curves.linear));
+
+    /*_jumpAnimation = Tween<double>(begin: filterPos, end: filterPos)
+        .animate(CurvedAnimation(parent: _controllerJ, curve: Curves.linear));*/
 
     postionGuitarAnimation = guitarHeroing
         .animate(CurvedAnimation(parent: _controller3, curve: Curves.linear));
@@ -442,7 +514,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         builder: (context) => Positioned(
             bottom: bottom,
             right: right,
-            child: Image.asset('assets/images/point.png')));
+            child: Image.asset('assets/images/black tie.png')));
 
     overlayState.insert(overlayEntry);
 
@@ -474,6 +546,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     sprite1 = 'sprites/ana_attack1_right_height-removebg-preview.png';
     sprite2 = 'sprites/ana_attack2_right_height2-removebg-preview.png';
     sprite3 = 'sprites/ana_attack3rightHeight-removebg-preview.png';
+    sprite4A = 'sprites/row-1-col-1.png';
+    sprite4B = 'sprites/row-1-col-2.png';
+    sprite4C = 'sprites/row-1-col-3.png';
+    sprite4D = 'sprites/row-1-col-4.png';
+    sprite4E = 'sprites/row-1-col-5.png';
+    sprite4F = 'sprites/row-1-col-6.png';
+    sprite4G = 'sprites/row-1-col-7.png';
+    sprite4H = 'sprites/row-1-col-8.png';
+    sprite4I = 'sprites/row-1-col-9.png';
     sprite8 = 'sprites/ana_guard-removebg-preview.png';
     sprite9 = 'sprites/ana_guard2rightHeight-removebg-preview2.png';
 
@@ -488,12 +569,22 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     Flame.images.load(sprite1);
     Flame.images.load(sprite2);
     Flame.images.load(sprite3);
+    Sprite.loadSprite(sprite4A, width: 42.0, height: 126.0);
+    Sprite.loadSprite(sprite4B, width: 42.0, height: 126.0);
+    Sprite.loadSprite(sprite4C, width: 42.0, height: 126.0);
+    Sprite.loadSprite(sprite4D, width: 42.0, height: 126.0);
+    Sprite.loadSprite(sprite4E, width: 42.0, height: 126.0);
+    Sprite.loadSprite(sprite4F, width: 42.0, height: 126.0);
+    Sprite.loadSprite(sprite4G, width: 42.0, height: 126.0);
+    Sprite.loadSprite(sprite4H, width: 42.0, height: 126.0);
+    Sprite.loadSprite(sprite4I, width: 42.0, height: 126.0);
     Flame.images.load(sprite8);
     Flame.images.load(sprite9);
 
     Flame.images.load(sprite0b);
     Flame.images.load(sprite1b);
     Flame.images.load(sprite2b);
+    Flame.images.load(sprite3b);
     Flame.images.load(sprite8b);
     Flame.images.load(sprite9b);
   }
@@ -509,6 +600,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     String sprite;
     int _animationID = animationID;
     double filterPos;
+    bool translation = false;
 
     switch (_animationID) {
       case 1:
@@ -565,8 +657,50 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         break;
     }
 
-    /*Sprite _sprite = await Sprite.loadSprite(sprite,
-        width: 78.0, height: 115.0);*/
+    if (_animationID > 39) {
+      width = 42;
+      height = 126;
+      columns = 1;
+      stepTime = 1;
+      loop = false;
+      attackTime = columns * stepTime;
+      translation = true;
+      /*_sprite = await Sprite.loadSprite(sprite4,
+            width: width.toDouble(), height: height.toDouble());*/
+
+      switch (_animationID) {
+        case 40:
+          sprite = sprite4A;
+          break;
+        case 41:
+          sprite = sprite4B;
+          break;
+        case 42:
+          sprite = sprite4C;
+          break;
+        case 43:
+          sprite = sprite4D;
+          break;
+        case 44:
+          sprite = sprite4E;
+          break;
+        case 45:
+          sprite = sprite4F;
+          break;
+        case 46:
+          sprite = sprite4G;
+          break;
+        case 47:
+          sprite = sprite4H;
+          break;
+        case 48:
+          sprite = sprite4I;
+          break;
+      }
+    }
+
+    _sprite = await Sprite.loadSprite(sprite,
+            width: 42.0, height: 126.0);
 
     final _animationSpriteSheet = SpriteSheet(
       imageName: sprite,
@@ -600,14 +734,38 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     else if (filterPos > MediaQuery.of(context).size.width - 123.0 - 33.0)
       filterPos = MediaQuery.of(context).size.width - 123.0 - 33.0;
 
+    if (translation) {
     overlayEntry = OverlayEntry(
-        builder: (context) => Positioned(
+        builder: (context) =>
+            /*AnimatedPositioned(
+            duration: Duration(seconds: 3),
             bottom: 360.0,
-            left: filterPos,
-            child: Container(
-                width: width.toDouble(),
-                height: height.toDouble(),
-                child: AnimationWidget(animation: _animation))));
+            left: pulou ? filterPos - 40.0 : filterPos,
+            child:*/
+            Positioned(
+                bottom: 360.0,
+                left: filterPos,
+                child:
+                    /*Positioned(
+                left: _jumpAnimation,
+                child:*/
+                    Container(
+                        width: 42.0,
+                        height: 126.0,
+                        child: SpriteWidget(sprite: _sprite))));
+    } else
+      overlayEntry = OverlayEntry(
+          builder: (context) => Positioned(
+              bottom: 360.0,
+              left: filterPos,
+              child:
+                  /*Positioned(
+                left: _jumpAnimation,
+                child:*/
+                  Container(
+                      width: width.toDouble(),
+                      height: height.toDouble(),
+                      child: AnimationWidget(animation: _animation))));
 
     //if (!_init) {
     overlayState.insert(overlayEntry);
@@ -757,6 +915,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   void dispose() {
     _controller.dispose();
     _controllerH.dispose();
+    _controller2.dispose();
+    _controller3.dispose();
+    //_controllerJ.dispose();
     super.dispose();
   }
 
