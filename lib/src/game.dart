@@ -658,8 +658,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     }
 
     if (_animationID > 39) {
-      width = 42;
-      height = 126;
+      width = 63;
+      height = 182;
       columns = 1;
       stepTime = 1;
       loop = false;
@@ -700,7 +700,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     }
 
     _sprite = await Sprite.loadSprite(sprite,
-            width: 42.0, height: 126.0);
+            width: 63.0, height: 182.0);
 
     final _animationSpriteSheet = SpriteSheet(
       imageName: sprite,
@@ -750,8 +750,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                 left: _jumpAnimation,
                 child:*/
                     Container(
-                        width: 42.0,
-                        height: 126.0,
+                        width: 63.0,
+                        height: 182.0,
                         child: SpriteWidget(sprite: _sprite))));
     } else
       overlayEntry = OverlayEntry(
