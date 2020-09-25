@@ -91,6 +91,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   String sprite4G;
   String sprite4H;
   String sprite4I;
+  String sprite4J;
 
   String sprite8;
   String sprite9;
@@ -217,6 +218,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     //animationID = 4;
     animation2ID = 0;
 
+    // jump
     for (animationID = 40; animationID < 49; animationID++) {
       setState(() {
         overlayEntry.remove();
@@ -231,6 +233,20 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       await Future.delayed(Duration(milliseconds: 75));
     }
 
+    // throw
+    animationID = 4;
+    setState(() {
+      overlayEntry.remove();
+      anaHeroOverlay(context, animationID);
+
+      //overlayEntry2.remove();
+      //obiHeroOverlay(context, animation2ID);
+    });
+
+    
+      await Future.delayed(Duration(milliseconds: 1300));
+
+    // stand  
     animationID = 0;
     setState(() {
       overlayEntry.remove();
@@ -575,6 +591,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     sprite4G = 'sprites/row-1-col-7.png';
     sprite4H = 'sprites/row-1-col-8.png';
     sprite4I = 'sprites/row-1-col-9.png';
+    sprite4J = 'sprites/ana_throwrightHeight-removebg-preview.png';
     sprite8 = 'sprites/ana_guard-removebg-preview.png';
     sprite9 = 'sprites/ana_guard2rightHeight-removebg-preview2.png';
 
@@ -607,6 +624,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         .load(sprite4H /*, width: 63.0, height: 182.0*/);
     /*Sprite.loadSprite*/ Flame.images
         .load(sprite4I /*, width: 63.0, height: 182.0*/);
+    Flame.images.load(sprite4J);
     Flame.images.load(sprite8);
     Flame.images.load(sprite9);
 
@@ -659,6 +677,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         height = 127;
         columns = 12;
         stepTime = 0.11;
+        loop = false;
+        attackTime = columns * stepTime;
+        break;
+      case 4:
+        sprite = sprite4J;
+        width = 140;
+        height = 136;
+        columns = 13;
+        stepTime = 0.1;
         loop = false;
         attackTime = columns * stepTime;
         break;

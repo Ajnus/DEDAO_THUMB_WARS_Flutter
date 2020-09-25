@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+tarefas.txt
 
 # IntelliJ related
 *.iml
