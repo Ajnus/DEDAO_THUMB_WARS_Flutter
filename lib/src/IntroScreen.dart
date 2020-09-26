@@ -73,9 +73,9 @@ class _CrawlerState extends State<Crawler> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LandingPage()));
     });
-    Future.delayed(Duration(seconds: 3), () {
+    /*Future.delayed(Duration(seconds: 3), () {
       background.play(intromusic);
-    });
+    });*/
 
     super.initState();
   }
