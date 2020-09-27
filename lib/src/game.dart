@@ -237,7 +237,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         anaHeroOverlay(context, animationID);
         });
         await Future.delayed(Duration(milliseconds: 1300));
-        player.play('7.mp3');
+        player.play('ana_Special.mp3');
       
 
 

@@ -112,6 +112,7 @@ flutter:
     - assets/vadersaber4.mp3
     - assets/vadersaber5.mp3
     - assets/speed.mp3
+    - assets/ana_Special.mp3
 
     - assets/i18n/en.json
     - assets/i18n/pt.json
