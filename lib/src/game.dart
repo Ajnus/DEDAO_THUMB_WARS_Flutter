@@ -92,6 +92,27 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   String sprite2b;
   String sprite3b;
 
+  String sprite4bA;
+  String sprite4bB;
+  String sprite4bC;
+  String sprite4bD;
+  String sprite4bE;
+  String sprite4bF;
+  String sprite4bG;
+  String sprite4bH;
+  String sprite4bI;
+  String sprite4bJ;
+  String sprite4bK;
+  String sprite4bL;
+  String sprite4bM;
+  String sprite4bN;
+  String sprite4bO;
+  String sprite4bP;
+  String sprite4bQ;
+  String sprite4bR;
+  String sprite4bS;
+  String sprite4bT;
+
   String sprite7bA;
   String sprite7bB;
   String sprite7bC;
@@ -149,6 +170,95 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       overlayEntry.remove();
       anaHeroOverlay(context, animationID);
     });
+  }
+
+  void _incrementCounterS() async {
+    int i = new Random().nextInt(2);
+    animation2ID = 4;
+
+    animationID = 8;
+    overlayEntry.remove();
+    anaHeroOverlay(context, animationID);
+
+    if (animation2ID == 4) {
+      // jump
+      for (animation2ID = 40; animation2ID < 59; animation2ID++) {
+        setState(() {
+          overlayEntry2.remove();
+          obiHeroOverlay(context, animation2ID);
+
+          _position = _position + 15.75;
+          if (_position > 128.0) {
+            _position = 128.0;
+          }
+        });
+
+        await Future.delayed(Duration(milliseconds: 34));
+      }
+
+      // throw
+      /*animationID = 4;
+      setState(() {
+        if (overlayEntry != null) {
+          overlayEntry.remove();
+          overlayEntry = null;
+        }
+
+        anaHeroOverlay(context, animationID);
+        player.play('7.mp3');
+      });
+
+      await Future.delayed(Duration(milliseconds: 275));
+      player.play('5.mp3');
+
+      await Future.delayed(Duration(milliseconds: 825));*/
+    }
+    /*else if (animationID == 5) {
+      setState(() {
+        if (overlayEntry != null) {
+          overlayEntry.remove();
+          overlayEntry = null;
+        }
+
+        anaHeroOverlay(context, animationID);
+      });
+      await Future.delayed(Duration(milliseconds: 1300));
+      player.play('ana_Special.mp3');
+
+      animationID = 50;
+      overlayEntry.remove();
+      anaHeroOverlay(context, animationID);
+
+      // obi_Fly
+      for (animation2ID = 70; animation2ID < 84; animation2ID++) {
+        setState(() {
+          overlayEntry2.remove();
+          obiHeroOverlay(context, animation2ID);
+
+          _position = _position + 35.0;
+          if (_position > 128.0) {
+            _position = 128.0;
+          }
+        });
+
+        await Future.delayed(Duration(milliseconds: 75));
+      }
+    }*/
+
+    // stand
+    animation2ID = 0;
+    animationID = 0;
+    setState(() {
+      overlayEntry2.remove();
+      obiHeroOverlay(context, animation2ID);
+
+      overlayEntry.remove();
+      anaHeroOverlay(context, animationID);
+
+      _counter++;
+    });
+
+    player2.play('speed.mp3');
   }
 
   void _hello() {
@@ -605,7 +715,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     sprite4J = 'sprites/ana_throwFinalFINAL.png';
 
     sprite5 = 'sprites/ana_special-removebg-preview.png';
-    sprite50= 'sprites/ana_specialEnd-removebg-preview.png';
+    sprite50 = 'sprites/ana_specialEnd-removebg-preview.png';
 
     sprite8 = 'sprites/ana_guard-removebg-preview.png';
     sprite9 = 'sprites/ana_guard2rightHeight-removebg-preview2.png';
@@ -614,6 +724,27 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     sprite1b = 'sprites/obi_attack1final.png';
     sprite2b = 'sprites/obi_attack2rightHeightA-removebg-preview final.png';
     sprite3b = 'sprites/obi_attack3rightHeight-removebg-preview.png';
+
+    sprite4bA = 'sprites/obi_jumprow-1-col-1.png';
+    sprite4bB = 'sprites/obi_jumprow-1-col-2.png';
+    sprite4bC = 'sprites/obi_jumprow-1-col-3.png';
+    sprite4bD = 'sprites/obi_jumprow-1-col-4.png';
+    sprite4bE = 'sprites/obi_jumprow-1-col-5.png';
+    sprite4bF = 'sprites/obi_jumprow-1-col-6.png';
+    sprite4bG = 'sprites/obi_jumprow-1-col-7.png';
+    sprite4bH = 'sprites/obi_jumprow-1-col-8.png';
+    sprite4bI = 'sprites/obi_jumprow-1-col-9.png';
+    sprite4bJ = 'sprites/obi_jumprow-1-col-10.png';
+    sprite4bK = 'sprites/obi_jumprow-1-col-11.png';
+    sprite4bL = 'sprites/obi_jumprow-1-col-12.png';
+    sprite4bM = 'sprites/obi_jumprow-1-col-13.png';
+    sprite4bN = 'sprites/obi_jumprow-1-col-14.png';
+    sprite4bO = 'sprites/obi_jumprow-1-col-15.png';
+    sprite4bP = 'sprites/obi_jumprow-1-col-16.png';
+    sprite4bQ = 'sprites/obi_jumprow-1-col-17.png';
+    sprite4bR = 'sprites/obi_jumprow-1-col-18.png';
+    sprite4bS = 'sprites/obi_jumprow-1-col-19.png';
+    sprite4bT = 'sprites/obi_jumprow-1-col-20.png';
 
     sprite7bA = 'sprites/obi_flyrow-1-col-1.png';
     sprite7bB = 'sprites/obi_flyrow-1-col-2.png';
@@ -666,6 +797,28 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     Flame.images.load(sprite1b);
     Flame.images.load(sprite2b);
     Flame.images.load(sprite3b);
+
+    Flame.images.load(sprite4bA);
+    Flame.images.load(sprite4bB);
+    Flame.images.load(sprite4bC);
+    Flame.images.load(sprite4bD);
+    Flame.images.load(sprite4bE);
+    Flame.images.load(sprite4bF);
+    Flame.images.load(sprite4bG);
+    Flame.images.load(sprite4bH);
+    Flame.images.load(sprite4bI);
+    Flame.images.load(sprite4bJ);
+    Flame.images.load(sprite4bK);
+    Flame.images.load(sprite4bL);
+    Flame.images.load(sprite4bM);
+    Flame.images.load(sprite4bN);
+    Flame.images.load(sprite4bO);
+    Flame.images.load(sprite4bP);
+    Flame.images.load(sprite4bQ);
+    Flame.images.load(sprite4bR);
+    Flame.images.load(sprite4bS);
+    Flame.images.load(sprite4bT);
+
     //fly
     Flame.images.load(sprite7bA);
     Flame.images.load(sprite7bB);
@@ -751,7 +904,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         loop = false;
         attackTime = columns * stepTime;
         break;
-        case 50:
+      case 50:
         sprite = sprite50;
         width = 91;
         height = 118;
@@ -963,6 +1116,82 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         loop = true;
         attackTime = columns * stepTime;
         break;
+    }
+
+    if (_animationID > 39 && _animationID < 60) {
+      width = 138;
+      height = 181;
+      columns = 1;
+      stepTime = 0.1;
+      loop = false;
+      attackTime = columns * stepTime;
+
+      //translation = true;
+      /*_sprite = await Sprite.loadSprite(sprite4,
+                  width: width.toDouble(), height: height.toDouble());*/
+
+      switch (_animationID) {
+        case 40:
+          sprite = sprite4bA;
+          break;
+        case 41:
+          sprite = sprite4bB;
+          break;
+        case 42:
+          sprite = sprite4bC;
+          break;
+        case 43:
+          sprite = sprite4bD;
+          break;
+        case 44:
+          sprite = sprite4bE;
+          break;
+        case 45:
+          sprite = sprite4bF;
+          break;
+        case 46:
+          sprite = sprite4bG;
+          break;
+        case 47:
+          sprite = sprite4bH;
+          break;
+        case 48:
+          sprite = sprite4bI;
+          break;
+        case 49:
+          sprite = sprite4bJ;
+          break;
+        case 50:
+          sprite = sprite4bK;
+          break;
+        case 51:
+          sprite = sprite4bL;
+          break;
+        case 52:
+          sprite = sprite4bM;
+          break;
+        case 53:
+          sprite = sprite4bN;
+          break;
+        case 54:
+          sprite = sprite4bO;
+          break;
+        case 55:
+          sprite = sprite4bP;
+          break;
+        case 56:
+          sprite = sprite4bQ;
+          break;
+        case 57:
+          sprite = sprite4bR;
+          break;
+        case 58:
+          sprite = sprite4bS;
+          break;
+        case 59:
+          sprite = sprite4bT;
+          break;
+      }
     }
 
     if (_animationID > 69) {
@@ -1183,15 +1412,17 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
               child: Icon(Icons.music_note),
             ),
             SlideTransition(
-              position: _offsetAnimation2,
-              child: FloatingActionButton(
-                heroTag: "btn2",
-                backgroundColor: Colors.blue,
-                onPressed: _incrementCounter,
-                tooltip: 'Jedi Balance',
-                child: Icon(Icons.add),
-              ),
-            ),
+                position: _offsetAnimation2,
+                child: InkWell(
+                  onLongPress: _incrementCounterS,
+                  child: FloatingActionButton(
+                    heroTag: "btn2",
+                    backgroundColor: Colors.blue,
+                    onPressed: _incrementCounter,
+                    //tooltip: 'Jedi Balance',
+                    child: Icon(Icons.add),
+                  ),
+                )),
           ]),
     );
   }
