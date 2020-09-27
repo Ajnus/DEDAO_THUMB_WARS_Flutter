@@ -264,11 +264,11 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       
     });
 
-    await Future.delayed(Duration(milliseconds: 330));
+    await Future.delayed(Duration(milliseconds: 275));
     player.play('5.mp3');
 
 
-    await Future.delayed(Duration(milliseconds: 770));
+    await Future.delayed(Duration(milliseconds: 825));
     /*if (overlayEntry != null) {
             overlayEntry.remove();
             overlayEntry = null;
