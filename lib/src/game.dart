@@ -225,10 +225,10 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   }
 
   void _decrementCounterS() async {
-    int i = new Random().nextInt(11);
-
     //animationID = 4;
-    animation2ID = 0;
+    animation2ID = 8;
+    overlayEntry2.remove();
+    obiHeroOverlay(context, animation2ID);
 
     // jump
     for (animationID = 40; animationID < 49; animationID++) {
@@ -236,7 +236,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         overlayEntry.remove();
         anaHeroOverlay(context, animationID);
 
-        _position = _position - 40.0;
+        _position = _position - 35.0;
         if (_position < -128.0) {
           _position = -128.0;
         }
@@ -252,7 +252,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     // throw
     animationID = 4;
-    animation2ID = 8;
+    //animation2ID = 8;
     setState(() {
       if (overlayEntry != null) {
         overlayEntry.remove();
@@ -260,16 +260,19 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       }
       //overlayEntry.maintainState = true;
       anaHeroOverlay(context, animationID);
+      player.play('7.mp3');
+      
     });
 
-    await Future.delayed(Duration(milliseconds: 1500));
+    await Future.delayed(Duration(milliseconds: 330));
+    player.play('5.mp3');
+
+
+    await Future.delayed(Duration(milliseconds: 770));
     /*if (overlayEntry != null) {
             overlayEntry.remove();
             overlayEntry = null;
           }*/
-
-    overlayEntry2.remove();
-    obiHeroOverlay(context, animation2ID);
 
     // stand
     animationID = 0;
@@ -287,8 +290,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
       _counter--;
     });
-
-    player.play('$i.mp3');
 
     //await Future.delayed(Duration(milliseconds: (attackTime * 1000).toInt()));
 
