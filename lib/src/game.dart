@@ -112,6 +112,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   String sprite4bR;
   String sprite4bS;
   String sprite4bT;
+  String sprite4bU;
 
   String sprite7bA;
   String sprite7bB;
@@ -182,7 +183,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     if (animation2ID == 4) {
       // jump
-      for (animation2ID = 40; animation2ID < 59; animation2ID++) {
+      for (animation2ID = 40; animation2ID < 60; animation2ID++) {
         setState(() {
           overlayEntry2.remove();
           obiHeroOverlay(context, animation2ID);
@@ -195,6 +196,14 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
         await Future.delayed(Duration(milliseconds: 34));
       }
+
+      // charge
+      setState(() {
+        overlayEntry2.remove();
+        obiHeroOverlay(context, animation2ID);
+      });
+
+      await Future.delayed(Duration(milliseconds: 1300));
 
       // throw
       /*animationID = 4;
@@ -745,6 +754,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     sprite4bR = 'sprites/obi_jumprow-1-col-18.png';
     sprite4bS = 'sprites/obi_jumprow-1-col-19.png';
     sprite4bT = 'sprites/obi_jumprow-1-col-20.png';
+    sprite4bU = 'sprites/obi_chargeRightHeight-removebg-preview.png';
 
     sprite7bA = 'sprites/obi_flyrow-1-col-1.png';
     sprite7bB = 'sprites/obi_flyrow-1-col-2.png';
@@ -818,6 +828,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     Flame.images.load(sprite4bR);
     Flame.images.load(sprite4bS);
     Flame.images.load(sprite4bT);
+    Flame.images.load(sprite4bU);
 
     //fly
     Flame.images.load(sprite7bA);
@@ -1088,6 +1099,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         height = 127;
         columns = 10;
         stepTime = 0.12;
+        loop = false;
+        attackTime = columns * stepTime;
+        break;
+      case 60:
+        sprite = sprite4bU;
+        width = 90;
+        height = 127;
+        columns = 13;
+        stepTime = 0.1;
         loop = false;
         attackTime = columns * stepTime;
         break;
