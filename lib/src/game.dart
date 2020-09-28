@@ -922,7 +922,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         width = 91;
         height = 118;
         columns = 13;
-        stepTime = 0.11;
+        stepTime = 0.1;
         loop = false;
         attackTime = columns * stepTime;
         break;
@@ -1118,7 +1118,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         width = 133;
         height = 126;
         columns = 15;
-        stepTime = 0.1;
+        stepTime = 0.11;
         loop = false;
         attackTime = columns * stepTime;
         break;
