@@ -113,6 +113,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   String sprite4bS;
   String sprite4bT;
   String sprite4bU;
+  String sprite4bV;
 
   String sprite7bA;
   String sprite7bB;
@@ -202,8 +203,25 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         overlayEntry2.remove();
         obiHeroOverlay(context, animation2ID);
       });
+      player.play('force_beam.mp3');
 
-      await Future.delayed(Duration(milliseconds: 1300));
+      await Future.delayed(Duration(milliseconds: 960));
+
+      // push
+      animation2ID++;
+      setState(() {
+        _position = _position - 386.0;
+        overlayEntry2.remove();
+        obiHeroOverlay(context, animation2ID);
+      });
+      player.play('force push.mp3');
+
+      _position = _position + 386.0;
+      await Future.delayed(Duration(milliseconds: 550));
+
+      player.play('5.mp3');
+
+      await Future.delayed(Duration(milliseconds: 200));
 
       // throw
       /*animationID = 4;
@@ -755,6 +773,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     sprite4bS = 'sprites/obi_jumprow-1-col-19.png';
     sprite4bT = 'sprites/obi_jumprow-1-col-20.png';
     sprite4bU = 'sprites/obi_chargeRightHeight-removebg-preview.png';
+    sprite4bV = 'sprites/obi_PushFinal2.png';
 
     sprite7bA = 'sprites/obi_flyrow-1-col-1.png';
     sprite7bB = 'sprites/obi_flyrow-1-col-2.png';
@@ -829,6 +848,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     Flame.images.load(sprite4bS);
     Flame.images.load(sprite4bT);
     Flame.images.load(sprite4bU);
+    Flame.images.load(sprite4bV);
 
     //fly
     Flame.images.load(sprite7bA);
@@ -1106,8 +1126,17 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         sprite = sprite4bU;
         width = 90;
         height = 127;
-        columns = 13;
-        stepTime = 0.1;
+        columns = 12;
+        stepTime = 0.08;
+        loop = false;
+        attackTime = columns * stepTime;
+        break;
+      case 61:
+        sprite = sprite4bV;
+        width = 386;
+        height = 128;
+        columns = 5;
+        stepTime = 0.11;
         loop = false;
         attackTime = columns * stepTime;
         break;
