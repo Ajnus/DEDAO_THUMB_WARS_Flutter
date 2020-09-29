@@ -133,6 +133,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   String sprite4bV;
 
   String sprite5b;
+  String sprite5b00;
 
   String sprite7bA;
   String sprite7bB;
@@ -153,6 +154,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   String sprite9b;
 
   double attackTime;
+
+  bool ani_Special = false;
+  bool obi_Special = false;
 
   void _incrementCounter() async {
     setState(() {
@@ -194,15 +198,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   }
 
   void _incrementCounterS() async {
-    int j = new Random().nextInt(2);
+    //int j = new Random().nextInt(2);
 
-    animation2ID = j + 4;
+    //animation2ID = j + 4;
 
     animationID = 8;
     overlayEntry.remove();
     anaHeroOverlay(context, animationID);
 
-    if (animation2ID == 4) {
+    if (!obi_Special) {
       // jump
       for (animation2ID = 40; animation2ID < 60; animation2ID++) {
         setState(() {
@@ -241,8 +245,20 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
       player.play('5.mp3');
 
+      /*setState(() { // ana_Offset
+        _position = _position - 10.0;
+        if (overlayEntry != null) {
+          overlayEntry.remove();
+          overlayEntry = null;
+        }
+
+        anaHeroOverlay(context, animationID);
+      });*/
+
       await Future.delayed(Duration(milliseconds: 200));
-    } else if (animation2ID == 5) {
+    } else /*if (animation2ID == 5) */{
+      // special
+      animation2ID = 5;
       setState(() {
         if (overlayEntry2 != null) {
           overlayEntry2.remove();
@@ -251,9 +267,20 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
         obiHeroOverlay(context, animation2ID);
       });
-      await Future.delayed(Duration(milliseconds: 1100));
+      await Future.delayed(Duration(milliseconds: 1210));
       player.play('obi_Special.mp3');
-      await Future.delayed(Duration(milliseconds: 400));
+
+      //specialCont
+      animation2ID = 500;
+      setState(() {
+        if (overlayEntry2 != null) {
+          overlayEntry2.remove();
+          overlayEntry2 = null;
+        }
+
+        obiHeroOverlay(context, animation2ID);
+      });
+      //await Future.delayed(Duration(milliseconds: 440));
 
       /*animationID = 50;
       overlayEntry.remove();
@@ -289,6 +316,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     });
 
     player2.play('speed.mp3');
+    obi_Special = obi_Special == false ? true : false;
   }
 
   void _hello() {
@@ -343,14 +371,14 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   }
 
   void _decrementCounterS() async {
-    int i = new Random().nextInt(2);
-    animationID = i + 4;
+    //int i = new Random().nextInt(2);
+    //animationID = i + 4;
 
     animation2ID = 8;
     overlayEntry2.remove();
     obiHeroOverlay(context, animation2ID);
 
-    if (animationID == 4) {
+    if (!ani_Special) {
       // jump
       for (animationID = 40; animationID < 49; animationID++) {
         setState(() {
@@ -382,7 +410,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       player.play('5.mp3');
 
       await Future.delayed(Duration(milliseconds: 825));
-    } else if (animationID == 5) {
+    } else/* if (animationID == 5) */{
+      animationID = 5;
       setState(() {
         if (overlayEntry != null) {
           overlayEntry.remove();
@@ -428,6 +457,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     });
 
     player2.play('speed.mp3');
+    ani_Special = ani_Special == false ? true : false;
   }
 
   void _colorCheck() {
@@ -795,6 +825,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     sprite4bV = 'sprites/obi_PushFinal2.png';
 
     sprite5b = 'sprites/obi_SpecialFinal.png';
+    sprite5b00 = 'sprites/obi_SpecialFinalCont-removebg-preview.png';
 
     sprite7bA = 'sprites/obi_flyrow-1-col-1.png';
     sprite7bB = 'sprites/obi_flyrow-1-col-2.png';
@@ -889,6 +920,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     Flame.images.load(sprite4bV);
 
     Flame.images.load(sprite5b);
+    Flame.images.load(sprite5b00);
 
     //fly
     Flame.images.load(sprite7bA);
@@ -1224,6 +1256,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         width = 133;
         height = 126;
         columns = 15;
+        stepTime = 0.11;
+        loop = false;
+        attackTime = columns * stepTime;
+        break;
+      case 500:
+        sprite = sprite5b00;
+        width = 133;
+        height = 126;
+        columns = 1;
         stepTime = 0.11;
         loop = false;
         attackTime = columns * stepTime;
