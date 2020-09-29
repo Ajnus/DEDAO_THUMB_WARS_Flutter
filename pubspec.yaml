@@ -115,6 +115,7 @@ flutter:
     - assets/ana_Special.mp3
     - assets/force push.mp3
     - assets/force_beam.mp3
+    - assets/obi_Special.mp3
 
     - assets/i18n/en.json
     - assets/i18n/pt.json

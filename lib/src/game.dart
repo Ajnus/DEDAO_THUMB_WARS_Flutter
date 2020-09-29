@@ -225,8 +225,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       player.play('5.mp3');
 
       await Future.delayed(Duration(milliseconds: 200));
-    }
-    else if (animation2ID == 5) {
+    } else if (animation2ID == 5) {
       setState(() {
         if (overlayEntry2 != null) {
           overlayEntry2.remove();
@@ -236,7 +235,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         obiHeroOverlay(context, animation2ID);
       });
       await Future.delayed(Duration(milliseconds: 1100));
-      player.play('ana_Special.mp3');
+      player.play('obi_Special.mp3');
       await Future.delayed(Duration(milliseconds: 400));
 
       /*animationID = 50;
