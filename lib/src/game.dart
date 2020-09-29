@@ -84,6 +84,23 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   String sprite5;
   String sprite50;
+
+  String sprite7A;
+  String sprite7B;
+  String sprite7C;
+  String sprite7D;
+  String sprite7E;
+  String sprite7F;
+  String sprite7G;
+  String sprite7H;
+  String sprite7I;
+  String sprite7J;
+  String sprite7K;
+  String sprite7L;
+  String sprite7M;
+  String sprite7N;
+  String sprite7O;
+
   String sprite8;
   String sprite9;
 
@@ -240,22 +257,22 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
       /*animationID = 50;
       overlayEntry.remove();
-      anaHeroOverlay(context, animationID);
+      anaHeroOverlay(context, animationID);*/
 
-      // obi_Fly
-      for (animation2ID = 70; animation2ID < 84; animation2ID++) {
+      // ana_Fly
+      for (animationID = 70; animationID < 85; animationID++) {
         setState(() {
-          overlayEntry2.remove();
-          obiHeroOverlay(context, animation2ID);
+          overlayEntry.remove();
+          anaHeroOverlay(context, animationID);
 
-          _position = _position + 35.0;
-          if (_position > 128.0) {
-            _position = 128.0;
+          _position = _position - 35.0;
+          if (_position < -128.0) {
+            _position = -128.0;
           }
         });
 
-        await Future.delayed(Duration(milliseconds: 75));
-      }*/
+        await Future.delayed(Duration(milliseconds: 70));
+      }
     }
 
     // stand
@@ -730,6 +747,22 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     sprite5 = 'sprites/ana_special-removebg-preview.png';
     sprite50 = 'sprites/ana_specialEnd-removebg-preview.png';
 
+    sprite7A = 'sprites/aflyrow-1-col-1.png';
+    sprite7B = 'sprites/aflyrow-1-col-2.png';
+    sprite7C = 'sprites/aflyrow-1-col-3.png';
+    sprite7D = 'sprites/aflyrow-1-col-4.png';
+    sprite7E = 'sprites/aflyrow-1-col-5.png';
+    sprite7F = 'sprites/aflyrow-1-col-6.png';
+    sprite7G = 'sprites/aflyrow-1-col-7.png';
+    sprite7H = 'sprites/aflyrow-1-col-8.png';
+    sprite7I = 'sprites/aflyrow-1-col-9.png';
+    sprite7J = 'sprites/aflyrow-1-col-10.png';
+    sprite7K = 'sprites/aflyrow-1-col-11.png';
+    sprite7L = 'sprites/aflyrow-1-col-12.png';
+    sprite7M = 'sprites/aflyrow-1-col-13.png';
+    sprite7N = 'sprites/aflyrow-1-col-14.png';
+    sprite7O = 'sprites/aflyrow-1-col-15.png';
+
     sprite8 = 'sprites/ana_guard-removebg-preview.png';
     sprite9 = 'sprites/ana_guard2rightHeight-removebg-preview2.png';
 
@@ -807,6 +840,23 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     Flame.images.load(sprite5);
     Flame.images.load(sprite50);
+    //fly
+    Flame.images.load(sprite7A);
+    Flame.images.load(sprite7B);
+    Flame.images.load(sprite7C);
+    Flame.images.load(sprite7D);
+    Flame.images.load(sprite7E);
+    Flame.images.load(sprite7F);
+    Flame.images.load(sprite7G);
+    Flame.images.load(sprite7H);
+    Flame.images.load(sprite7I);
+    Flame.images.load(sprite7J);
+    Flame.images.load(sprite7K);
+    Flame.images.load(sprite7L);
+    Flame.images.load(sprite7M);
+    Flame.images.load(sprite7N);
+    Flame.images.load(sprite7O);
+
     Flame.images.load(sprite8);
     Flame.images.load(sprite9);
 
@@ -1000,6 +1050,63 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
           break;
         case 48:
           sprite = sprite4I;
+          break;
+      }
+    }
+
+    if (_animationID > 69) {
+      width = 123;
+      height = 126;
+      columns = 1;
+      stepTime = 0.1;
+      loop = false;
+      attackTime = columns * stepTime;
+
+      switch (_animationID) {
+        case 70:
+          sprite = sprite7A;
+          break;
+        case 71:
+          sprite = sprite7B;
+          break;
+        case 72:
+          sprite = sprite7C;
+          break;
+        case 73:
+          sprite = sprite7D;
+          break;
+        case 74:
+          sprite = sprite7E;
+          break;
+        case 75:
+          sprite = sprite7F;
+          break;
+        case 76:
+          sprite = sprite7G;
+          break;
+        case 77:
+          sprite = sprite7H;
+          break;
+        case 78:
+          sprite = sprite7I;
+          break;
+        case 79:
+          sprite = sprite7J;
+          break;
+        case 80:
+          sprite = sprite7K;
+          break;
+        case 81:
+          sprite = sprite7L;
+          break;
+        case 82:
+          sprite = sprite7M;
+          break;
+        case 83:
+          sprite = sprite7N;
+          break;
+        case 84:
+          sprite = sprite7O;
           break;
       }
     }
