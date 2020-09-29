@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:counter/src/IntroScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:frideos_core/frideos_core.dart';
@@ -18,6 +19,9 @@ class AppState extends AppStateModel {
   static AudioCache player2 = new AudioCache();
   static AudioCache player3 = new AudioCache();
   static AudioCache player4 = new AudioCache();
+
+  AudioPlayer stateAudioPlayer = AudioPlayer();
+
   static const blaster = "wpn_cis_blaster_fire.wav";
   static const blasthim = "Commander_Cody_blasts_him(cut).mp3";
   static const over = "You_underestimate_my_power(cut).mp3";
@@ -27,6 +31,9 @@ class AppState extends AppStateModel {
   static const breathe = 'Spinclash(vader).mp3';
   static const palps = 'laughing.mp3';
   static const liar = 'liar!.mp3';
+
+  AudioCache background = new AudioCache();
+  static const intromusic = "Star_Wars_Soundtrack.mp3";
 
   AppState._internal() {
     print('-------APP STATE INIT--------');
@@ -110,6 +117,9 @@ class AppState extends AppStateModel {
     } else {
       currentTheme.value = themes[0];
     }
+    Future.delayed(Duration(seconds: 3), () async {
+      stateAudioPlayer = await background.play(intromusic);
+    });
   }
 
   Future _loadCategories() async {
@@ -182,6 +192,7 @@ class AppState extends AppStateModel {
 
   void playGame() {
     player3.play(blasthim);
+    stateAudioPlayer.stop();
 
     _changeTab = AppTab.game;
     Future.delayed(Duration(seconds: 1), () {

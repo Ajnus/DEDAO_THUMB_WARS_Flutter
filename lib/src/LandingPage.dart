@@ -1,3 +1,4 @@
+import 'package:counter/src/IntroScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:frideos/frideos.dart';
@@ -37,7 +38,7 @@ class LandingPage extends StatelessWidget {
         return SummaryPage(stats: appState.swBloc.stats);
         break;*/
       default:
-        return MainPage();
+        return IntroScreen();
     }
   }
 

@@ -1,4 +1,5 @@
 enum AppTab {
+  intro,
   main,
   choose,
   game,
