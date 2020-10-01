@@ -19,6 +19,7 @@ import 'package:flame/position.dart'; // imports the Position class
 import 'ending.dart';
 /*import 'package:spritewidget/spritewidget.dart';
 import 'dart:ui' as ui show Image;*/
+import 'models/appstate.dart';
 
 class GamePage extends StatefulWidget {
   //GamePage({Key key, this.title}) : super(key: key);
@@ -54,6 +55,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   Color color = Colors.grey;
   double _opacityLevel = 1.0;
+  double _textOpacityLevel = 0.0;
   double _heroOpacityLevel = 1.0;
   int animationID = 0;
   int animation2ID = 0;
@@ -155,17 +157,24 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   double attackTime;
 
+  // UNrandom
+  int ani_attack = 1;
+  int obi_attack = 1;
   bool ani_Special = false;
   bool obi_Special = false;
 
   void _incrementCounter() async {
+    int i /*, j*/;
+
+    if (obi_attack > 3) {
+      obi_attack = 1;
+    }
+
     setState(() {
       //player.play(audioPath2);
 
-      int i, j;
-
-      j = new Random().nextInt(3);
-      animation2ID = j + 1;
+      //j = new Random().nextInt(3);
+      animation2ID = obi_attack;
       if (animation2ID == 2) {
         animationID = 9;
       } else
@@ -182,6 +191,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       player.play('$i.mp3');
 
       _counter++;
+      obi_attack++;
     });
 
     await Future.delayed(Duration(milliseconds: (attackTime * 1000).toInt()));
@@ -256,7 +266,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       });*/
 
       await Future.delayed(Duration(milliseconds: 200));
-    } else /*if (animation2ID == 5) */{
+
+      _counter += 5;
+    } else /*if (animation2ID == 5) */ {
       // special
       animation2ID = 5;
       setState(() {
@@ -267,7 +279,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
         obiHeroOverlay(context, animation2ID);
       });
-      await Future.delayed(Duration(milliseconds: 1210));
+      await Future.delayed(Duration(milliseconds: 1320));
       player.play('obi_Special.mp3');
 
       //specialCont
@@ -300,6 +312,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
         await Future.delayed(Duration(milliseconds: 70));
       }
+      _counter += 10;
     }
 
     // stand
@@ -311,8 +324,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
       overlayEntry.remove();
       anaHeroOverlay(context, animationID);
-
-      _counter++;
     });
 
     player2.play('speed.mp3');
@@ -328,11 +339,15 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   }
 
   void _decrementCounter() async {
-    int i, j;
+    int i /*, j*/;
 
-    j = new Random().nextInt(3);
+    if (ani_attack > 3) {
+      ani_attack = 1;
+    }
+
+    //j = new Random().nextInt(3);
     i = new Random().nextInt(11);
-    animationID = j + 1;
+    animationID = ani_attack;
 
     if (animationID == 2) {
       animation2ID = 9;
@@ -350,6 +365,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       obiHeroOverlay(context, animation2ID);
 
       _counter--;
+      ani_attack++;
     });
 
     player.play('$i.mp3');
@@ -410,7 +426,8 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       player.play('5.mp3');
 
       await Future.delayed(Duration(milliseconds: 825));
-    } else/* if (animationID == 5) */{
+      _counter -= 5;
+    } else /* if (animationID == 5) */ {
       animationID = 5;
       setState(() {
         if (overlayEntry != null) {
@@ -441,6 +458,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
         await Future.delayed(Duration(milliseconds: 75));
       }
+      _counter -= 10;
     }
 
     // stand
@@ -452,8 +470,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
       overlayEntry2.remove();
       obiHeroOverlay(context, animation2ID);
-
-      _counter--;
     });
 
     player2.play('speed.mp3');
@@ -477,6 +493,10 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     if (who == 'hero') {
       await Future.delayed(Duration(seconds: 1));
       setState(() => _heroOpacityLevel = _heroOpacityLevel == 0 ? 1.0 : 0.0);
+    }
+    if (who == 'text') {
+      await Future.delayed(Duration(seconds: 1));
+      setState(() => _textOpacityLevel = _textOpacityLevel == 0 ? 1.0 : 0.0);
     }
   }
 
@@ -603,6 +623,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         //_offset = const Offset(0.0, -5.0);
         //showPointOverlay(context, MediaQuery.of(context).size.height/2.0, MediaQuery.of(context).size.width/2.0 + 30.0);
         _changeOpacity('hero');
+        _changeOpacity('text');
       });
     });
 
@@ -620,9 +641,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     });
 
     Future.delayed(Duration(milliseconds: 62950), () {
-      //showOverlay3(context);
+      showOverlay3(context);
       setState(() {
-        //_changeOpacity('overlay');
+        _changeOpacity('overlay');
         _offsetAnimation = Tween<Offset>(
           begin: Offset.zero,
           end: Offset(0.0, -5.0),
@@ -636,7 +657,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
     //});
     Future.delayed(Duration(seconds: 30), () {
-      //showOverlay(context);
+      showOverlay(context);
       setState(() {
         _offsetAnimation = Tween<Offset>(
           begin: Offset.zero,
@@ -647,28 +668,37 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
       });
     });
     Future.delayed(Duration(seconds: 40 + 5), () {
-      //showOverlay2(context);
+      showOverlay2(context);
     });
 
     Future.delayed(Duration(seconds: 70), () {
-      //showOverlay4(context);
-      /*setState(() {
-              _offsetAnimation = postionGuitarAnimation;
-              _offsetAnimation2 = postionGuitarAnimation2;
-            });*/
+      showOverlay4(context);
+      setState(() {
+        _offsetAnimation = postionGuitarAnimation;
+        _offsetAnimation2 = postionGuitarAnimation2;
+      });
       //_changeOpacity();
     });
-    /*Future.delayed(
-            const Duration(seconds: 80), // 40
-            () {
-              dispose();
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EndingPage()),
-              );
-            },
-          );*/
+    Future.delayed(
+      const Duration(seconds: 81), // 40
+      () {
+        for (int i = 0; i < 10; i++) print('*** PRÉ - DISPOSE ***');
+        overlayEntry.remove();
+        overlayEntry2.remove();
+        //overlayState.dispose();
+        //overlayState2.dispose();
+        dispose();
+
+        for (int i = 0; i < 10; i++) print('*** PÓS - DISPOSE ***');
+
+        /*Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => EndingPage()),
+        );
+         AppState().ending();*/
+      },
+    );
   }
 
   showOverlay(BuildContext context) async {
@@ -1037,7 +1067,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         width = 86;
         height = 127;
         columns = 5;
-        stepTime = 0.2;
+        stepTime = 0.15;
         loop = true;
         attackTime = columns * stepTime;
         break;
@@ -1308,7 +1338,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
         width = 123;
         height = 127;
         columns = 5;
-        stepTime = 0.2;
+        stepTime = 0.15;
         loop = true;
         attackTime = columns * stepTime;
         break;
@@ -1535,20 +1565,26 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                   ),
                 )
               else
-                Text(
-                  'The Balance of the Force wins.',
-                  style: TextStyle(
-                    fontSize: 19,
-                    color: Colors.white,
-                  ),
-                ),
-              Text(
-                '$_counter',
-                style: TextStyle(
-                  color: color,
-                  fontSize: 25,
-                ),
-              ),
+                AnimatedOpacity(
+                    opacity: _textOpacityLevel,
+                    duration: Duration(milliseconds: 100),
+                    child: Text(
+                      'The Balance of the Force wins.',
+                      style: TextStyle(
+                        fontSize: 19,
+                        color: Colors.white,
+                      ),
+                    )),
+              AnimatedOpacity(
+                  opacity: _textOpacityLevel,
+                  duration: Duration(milliseconds: 100),
+                  child: Text(
+                    '$_counter',
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 25,
+                    ),
+                  )),
               Container(height: 65.0),
               Image.asset('assets/flaws.jpg'),
             ],

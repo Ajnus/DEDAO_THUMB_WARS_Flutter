@@ -55,6 +55,9 @@ class Crawler extends StatefulWidget {
 
 class _CrawlerState extends State<Crawler> {
   final _scrollController = ScrollController();
+
+  AudioCache background = new AudioCache();
+  static const intromusic = "Star_Wars_Soundtrack(cut).mp3";
   
 
   @override
@@ -66,14 +69,14 @@ class _CrawlerState extends State<Crawler> {
             _scrollController.position.maxScrollExtent,
             duration: widget.crawlDuration,
             curve: Curves.linear));
-    Future.delayed(Duration(seconds: 40), () {
+    Future.delayed(Duration(seconds: 1), () {
       dispose();
       Navigator.pop(context);
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LandingPage()));
+          context, MaterialPageRoute(builder: (context) => PostCreditsPage()));
     });
-    /*Future.delayed(Duration(seconds: 3), () {
-      playMusic();
+    /*Future.delayed(Duration(seconds: 4), () {
+      background.play(intromusic);
     });*/
 
     super.initState();

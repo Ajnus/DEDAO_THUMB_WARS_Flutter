@@ -35,6 +35,16 @@ class HeroesPage extends StatelessWidget {
           break;
         }
 
+      case 4:
+      {
+        _name = '_';
+        _color = Colors.transparent;
+        _prelude = '_';
+        _description = '_';
+        _pic = 'assets/images/heroes/guilty.jpeg';
+          break;
+      }
+
       default:
         {
           _name = 'LUKE SKYWALKER';

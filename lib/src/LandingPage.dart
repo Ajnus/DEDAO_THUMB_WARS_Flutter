@@ -38,7 +38,7 @@ class LandingPage extends StatelessWidget {
         return SummaryPage(stats: appState.swBloc.stats);
         break;*/
       default:
-        return IntroScreen();
+        return MainPage();
     }
   }
 
