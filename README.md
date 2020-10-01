@@ -8,8 +8,10 @@ plus some recent personal digging.
 
 In constant development for Dart/Flutter pratice + total fun. :)
 
+-----------
 DEMO 1.0:
 https://www.youtube.com/watch?v=SRlWgwwjvo4&list=PLECQsE2HAZRp3uAr29EK9kQLDNfXOLP5p
+-----------
 
 ---
 
