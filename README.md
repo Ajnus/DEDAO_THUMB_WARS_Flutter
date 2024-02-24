@@ -1,6 +1,6 @@
-# Dedão (Thumb) Wars
-DEMO 1.0 video: 
 [![Capa](https://github.com/Ajnus/DEDAO_THUMB_WARS_Flutter/blob/master/dedao%20wars%20play.png?raw=true)](https://www.youtube.com/watch?v=SRlWgwwjvo4)
+
+# Dedão (Thumb) Wars
 
 A (Star Wars) Game/Project fruit of the INF1300 - Mobile Agile and Multiplatform Programming classes at 2019-1 at PUC-Rio, from Professor Markus Endler and monitor Felipe Carvalho.
 
